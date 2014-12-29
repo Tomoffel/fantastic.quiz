@@ -11,22 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141229105649) do
-
-  create_table "categories", force: true do |t|
-    t.string   "name"
-    t.integer  "parent_id"
-  end 
-  add_index "categories", ["parent_id"], name: "index_categories_on_parent_id"
-
-ActiveRecord::Schema.define(version: 20141229113707) do
+ActiveRecord::Schema.define(version: 20141229122330) do
 
   create_table "answers", force: true do |t|
     t.text     "answer"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-  
+
+  create_table "categories", force: true do |t|
+    t.string   "name"
+    t.integer  "parent_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "categories", ["parent_id"], name: "index_categories_on_parent_id"
+
   create_table "question_answers", force: true do |t|
     t.integer  "question_id"
     t.integer  "answer_id"
