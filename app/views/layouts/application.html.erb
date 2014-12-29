@@ -39,23 +39,25 @@
   <body>
 
     <%= render partial: 'shared/navigation' %>
-
     <div class="container">
       <div class="row">
         <div class="col-lg-9">
           <%= bootstrap_flash %>
           <%= yield %>
         </div>
+
+        <% if current_user %>
         <div class="col-lg-3">
           <div class="well sidebar-nav">
-            <h3>Frage</h3>
+            <h3>Question</h3>
             <ul class="nav nav-list">
-              <li class="nav-header">Frage</li>
-              <li><%= link_to "anlegen", new_question_path  %></li>
-              <li><%= link_to "bearbeiten", questions_path  %></li>
+              <li><%= link_to "create", new_question_path  %></li>
+              <li><%= link_to "show all", questions_path  %></li>
             </ul>
           </div><!--/.well -->
         </div><!--/span-->
+
+        <% end %>
       </div><!--/row-->
 
       <footer>

@@ -23,7 +23,7 @@ class QuestionsController < ApplicationController
 
     respond_to do |format|
       if @question.save
-        format.html { redirect_to @question, notice: 'Frage erfolgreich erstellt' }
+        format.html { redirect_to @question, notice: 'Question successfully created!' }
         format.json { render :show, status: :created, location: @question }
       else
         format.html { render :new }
@@ -35,11 +35,24 @@ class QuestionsController < ApplicationController
 
   def update
     @question.update(question_params)
+    respond_to do |format|
+      if @question.update(question_params)
+        format.html { redirect_to @question, notice: 'Question successfully updated!' }
+        format.json { render :show, status: :ok, location: @question }
+      else
+        format.html { render :edit }
+        format.json { render json: @question.errors, status: :unprocessable_entity }
+      end
+    end
     #respond_with(@question)
   end
 
   def destroy
     @question.destroy
+    respond_to do |format|
+      format.html { redirect_to questions_url, notice: 'Question successfully deleted!' }
+      format.json { head :no_content }
+    end
     #respond_with(@question)
   end
 
