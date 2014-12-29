@@ -1,6 +1,7 @@
 <p>
   <strong>Question:</strong>
   <%= @question.question %>
+  <%= link_to 'Antworten', answer_path %>
 </p>
 
 <%= link_to 'Edit', edit_question_path(@question) %> |
