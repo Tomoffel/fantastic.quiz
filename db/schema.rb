@@ -11,7 +11,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141229103037) do
+ActiveRecord::Schema.define(version: 20141229113707) do
+
+  create_table "answers", force: true do |t|
+    t.text     "answer"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "question_answers", force: true do |t|
+    t.integer  "question_id"
+    t.integer  "answer_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "question_answers", ["answer_id"], name: "index_question_answers_on_answer_id"
+  add_index "question_answers", ["question_id"], name: "index_question_answers_on_question_id"
+
+  create_table "questions", force: true do |t|
+    t.string   "question"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
