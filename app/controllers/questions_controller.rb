@@ -21,6 +21,16 @@ class QuestionsController < ApplicationController
   def create
     @question = Question.new(question_params)
 
+    newAnswer = { 'answer' => question_params['answer1'], 'question_id' => @question.id, 'correctAnswer' => false }
+
+    if Answer.new(newAnswer).save
+
+    else
+    end
+    # Answer.new(question_params['answer2']).save
+    # Answer.new(question_params['answer3']).save
+    # Answer.new(question_params['answer4']).save
+
     respond_to do |format|
       if @question.save
         format.html { redirect_to @question, notice: 'Question successfully created!' }

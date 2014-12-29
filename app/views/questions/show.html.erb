@@ -1,7 +1,14 @@
 <p>
   <strong>Question:</strong>
   <%= @question.question %>
-  <%= link_to 'Antworten', answer_path %>
+  <%= Answer.all.each do |ans|
+    ans.question
+    @question.id
+      if ans.question == @question.id
+        ans.answer
+      end
+    end
+       %>
 </p>
 
 <%= link_to 'Edit', edit_question_path(@question) %> |
