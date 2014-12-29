@@ -31,6 +31,8 @@ gem 'devise'
 gem 'devise-bootstrap-views'
 
 gem 'twitter-bootstrap-rails'
+gem 'therubyracer'
+gem 'less-rails'
 
 gem 'rolify'
 
