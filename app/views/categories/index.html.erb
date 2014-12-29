@@ -1,0 +1,31 @@
+<h1>Listing categories</h1>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Parent</th>
+      <th colspan="4"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @categories.each do |category| %>
+      <tr>
+        <td><%= category.id %></td>
+        <td><%= category.name %></td>
+        <td><%= if category.parent_id != nil
+                  @categories.find(category.parent_id).name
+                end %></td>
+        <td><%= link_to 'Show', category, class: 'btn btn-default' %>
+        <%= link_to 'Edit', edit_category_path(category), class: 'btn btn-default' %>
+        <%= link_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-default' %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Category', new_category_path, class: 'btn btn-success align-right' %>
