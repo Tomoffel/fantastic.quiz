@@ -11,33 +11,39 @@
         </div>
     <% end %>
 
-    <div class="field">
-      <%= f.label :question %><br>
-      <%= f.text_field :question %> <br>
+    <table class="table table-striped">
+      <tr>
+        <td>
+          <div class="field">
+            <%= f.label :question %><br>
+            <%= f.text_field :question %> <br>
+        </td>
+      </tr>
 
-      <table>
-        <tr>
-          <td>
-            <%= f.label :answer1 %><br>
-            <%= f.text_field :answers1, :value => " " %>
-            <input type="radio" name="Antwort" value="true"><br></td>
-          <td>
-            <%= f.label :answer2 %><br>
-            <%= f.text_field :answers2, :value => " " %>
-            <input type="radio" name="Antwort" value="true"><br></td>
-        <tr>
-          <td>
-            <%= f.label :answer3 %><br>
-            <%= f.text_field :answers2, :value => " " %>
-            <input type="radio" name="Antwort" value="true"><br></td>
-          <td>
-            <%= f.label :answer4 %><br>
-            <%= f.text_field :answers2, :value => " " %>
-            <input type="radio" name="Antwort" value="true"><br></td>
-        </tr>
-      </table>
+
+      <tr>
+        <td>
+          <%= f.label :answer1 %><br>
+          <%= f.text_field :answers1, :value => " " %>
+          <input type="radio" name="Antwort" value="true"><br></td>
+        <td>
+          <%= f.label :answer2 %><br>
+          <%= f.text_field :answers2, :value => " " %>
+          <input type="radio" name="Antwort" value="true"><br></td>
+      <tr>
+        <td>
+          <%= f.label :answer3 %><br>
+          <%= f.text_field :answers2, :value => " " %>
+          <input type="radio" name="Antwort" value="true"><br></td>
+        <td>
+          <%= f.label :answer4 %><br>
+          <%= f.text_field :answers2, :value => " " %>
+          <input type="radio" name="Antwort" value="true"><br></td>
+      </tr>
     </div>
+      <tr><td>
     <div class="actions">
       <%= f.submit %>
-    </div>
+    </div></td></tr>
+    </table>
 <% end %>
