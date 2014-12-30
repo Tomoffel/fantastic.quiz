@@ -1,9 +1,13 @@
-<h1>Listing questions</h1>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h4>Listing Questions</h4>
+  </div>
+  <div class="panel-body">
 
-<table>
+<table class="table table-striped">
   <thead>
     <tr>
-      <th>Question</th>
+      <th>Questions</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -12,11 +16,9 @@
     <% @questions.each do |question| %>
       <tr>
         <td><%= question.question %></td>
-        <tr>
-            <td><%= link_to 'Show', question %></td>
-            <td><%= link_to 'Edit', edit_question_path(question) %></td>
-            <td><%= link_to 'Destroy', question, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        </tr>
+            <td><%= link_to 'Show', question, class: 'btn btn-default' %>
+            <%= link_to 'Edit', edit_question_path(question), class: 'btn btn-default' %>
+            <%= link_to 'Destroy', question, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-default' %></td>
       </tr>
     <% end %>
   </tbody>
@@ -24,4 +26,6 @@
 
 <br>
 
-<%= link_to 'New Question', new_question_path %>
+<%= link_to 'New Question', new_question_path, class: 'btn btn-primary align-right' %>
+  </div>
+</div>
