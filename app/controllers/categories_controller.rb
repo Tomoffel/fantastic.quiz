@@ -23,7 +23,7 @@ class CategoriesController < ApplicationController
     respond_to do |format|
       if @category.save
         format.html { redirect_to categories_url, notice: 'Category was successfully created.' }
-        format.json { render :show, status: :created, location: @category}
+        format.json { render :show, status: :created, location: @category }
       else
         format.html { render :new }
         format.json { render json: @category.errors, status: :unprocessable_entity }
@@ -33,7 +33,6 @@ class CategoriesController < ApplicationController
   end
 
   def update
-
     respond_to do |format|
       if @category.update(category_params)
         format.html { redirect_to categories_url, notice: 'Category was successfully updated.' }
@@ -70,12 +69,29 @@ class CategoriesController < ApplicationController
     #respond_with(@category)
   end
 
-  private
-    def set_category
-      @category = Category.find(params[:id])
+  def add_remove_question
+    if params['remove'] != nil
+      CategoryToQuestion.all.each do |entry|
+        if entry.category_id == params['id'].to_i and entry.question_id == params['button'].to_i
+          entry.destroy
+        end
+      end
+      flash[:notice] = 'Remove question from category'
+    else
+      CategoryToQuestion.new({'category_id' => params['id'], 'question_id' => params['button']}).save
+
+      flash[:notice] = 'Add question to category'
     end
 
-    def category_params
-      params.require(:category).permit(:name, :parent_id)
-    end
+    redirect_to edit_category_url
+  end
+
+  private
+  def set_category
+    @category = Category.find(params[:id])
+  end
+
+  def category_params
+    params.require(:category).permit(:name, :parent_id)
+  end
 end
