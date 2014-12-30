@@ -6,7 +6,6 @@
   </div>
   <div class="panel-body"><strong>Parent:</strong>
    [<%= @category.parent_id %>]
-<!--Make it DRY-->
     <%= if @category.parent_id != nil
           Category.all.find(@category.parent_id).name
         end %>
