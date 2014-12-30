@@ -17,28 +17,32 @@
           <div class="field">
             <%= f.label :question %><br>
             <%= f.text_field :question %> <br>
+        </div>
         </td>
       </tr>
-
 
       <tr>
         <td>
           <%= f.label :answer1 %><br>
-          <%= f.text_field :answers1, :value => " " %>
-          <input type="radio" name="Antwort" value="true"><br></td>
+          <%= f.text_field :answers1, :value => @answerValue1 %>
+          <%= f.radio_button :correctMethod, 'correct1', :checked => @correctValue1 %>
+        </td>
         <td>
           <%= f.label :answer2 %><br>
-          <%= f.text_field :answers2, :value => " " %>
-          <input type="radio" name="Antwort" value="true"><br></td>
+          <%= f.text_field :answers2, :value => @answerValue2 %>
+          <%= f.radio_button :correctMethod, 'correct2', :checked => @correctValue2 %>
+        </td>
       <tr>
         <td>
           <%= f.label :answer3 %><br>
-          <%= f.text_field :answers3, :value => " " %>
-          <input type="radio" name="Antwort" value="true"><br></td>
+          <%= f.text_field :answers3, :value => @answerValue3 %>
+          <%= f.radio_button :correctMethod, 'correct3', :checked => @correctValue3 %>
+        </td>
         <td>
           <%= f.label :answer4 %><br>
-          <%= f.text_field :answers4, :value => " " %>
-          <input type="radio" name="Antwort" value="true"><br></td>
+          <%= f.text_field :answers4, :value => @answerValue4 %>
+          <%= f.radio_button :correctMethod, 'correct4', :checked => @correctValue4 %>
+        </td>
       </tr>
     </div>
       <tr><td>
