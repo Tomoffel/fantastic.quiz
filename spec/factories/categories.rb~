@@ -1,17 +1,12 @@
 FactoryGirl.define do
   factory :category do
-<<<<<<< HEAD
     name "Testcategory"
     parent_id nil
 
     factory :categoryWithParent do
       name "Testcategory2"
       parent_id 1
-=======
-    name "MyString"
-  parent_id ""
-  end
->>>>>>> frage
+
 
       factory :categoryWithoutName do
         name nil

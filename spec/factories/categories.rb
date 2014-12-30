@@ -7,6 +7,7 @@ FactoryGirl.define do
       name "Testcategory2"
       parent_id 1
 
+
       factory :categoryWithoutName do
         name nil
         parent_id 1
