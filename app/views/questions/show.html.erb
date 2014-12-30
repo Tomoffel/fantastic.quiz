@@ -1,7 +1,39 @@
-<p>
-  <strong>Question:</strong>
-  <%= @question.question %>
-</p>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h4 style="display: inline;">Question:</h4> <%= @question.question %>
+  </div>
+  <div class="panel-body">
 
-<%= link_to 'Edit', edit_question_path(@question) %> |
+<table class="table table-striped">
+  <tr>
+    <td colspan="2"><strong>Answers:</strong>
+      <% index = 1 %>
+      <% @question.answers.each do |ans| %>
+          <% if ans.question_id == @question.id %>
+          <tr>
+            <td width="20"><%= index %></td>
+            <% index = index + 1 %>
+            <td
+            <% if ans.correctAnswer %>
+            class="success"
+            <% end %>>
+              <div>
+                <%= ans.answer %>
+                <% if ans.correctAnswer %>
+                    (Correct)
+                <% end %>
+              </div>
+            </td>
+          </tr>
+      <% end %>
+  <% end %>
+  </td>
+  </tr>
+
+  </p>
+</table>
+
+<%= link_to 'Edit', edit_question_path(@question), class: 'btn btn-primary align-right' %>
+  </div>
+</div>
 <%= link_to 'Back', questions_path %>
