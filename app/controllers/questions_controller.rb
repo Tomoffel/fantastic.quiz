@@ -94,12 +94,12 @@ class QuestionsController < ApplicationController
       end
 
       #maybe add new answers
-      if (index == 3 and answer_params[3]['answer'] != nil)
+      if (index == 3 and answer_params[3]['answer'] != "")
         noError = noError ? create_new_answer(answer_params[3]['answer'], @question.id, answer_params[3]['correctAnswer']) : false
         index = index + 1
       end
 
-      if (index == 4 and  answer_params[4]['answer'] != nil)
+      if (index == 4 and  answer_params[4]['answer'] != "")
         noError = noError ? create_new_answer(answer_params[4]['answer'], @question.id, answer_params[4]['correctAnswer']) : false
       end
 
