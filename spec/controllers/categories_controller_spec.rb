@@ -83,7 +83,7 @@ RSpec.describe CategoriesController, :type => :controller do
 
       it "redirects to the created category" do
         post :create, {:category => valid_attributes}, valid_session
-        expect(response).to redirect_to(Category.last)
+        expect(response).to redirect_to(categories_url)
       end
     end
 
@@ -122,7 +122,7 @@ RSpec.describe CategoriesController, :type => :controller do
       it "redirects to the category" do
         category = Category.create! valid_attributes
         put :update, {:id => category.to_param, :category => valid_attributes}, valid_session
-        expect(response).to redirect_to(category)
+        expect(response).to redirect_to(categories_url)
       end
     end
 
