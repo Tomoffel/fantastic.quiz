@@ -15,3 +15,49 @@
 //= require twitter/bootstrap
 //= require turbolinks
 //= require_tree .
+
+//todo in correct file
+var ready = function() {
+    $('#btn_select').click(function(e) {
+        var selectedOpts = $('#unused_questions option:selected');
+
+        selectedOpts.each(function(index) {
+            if (!containsId($(this).val(), $('#category_questions option'))) {
+                $('#category_questions').append($(this).clone());
+            }
+        });
+
+        e.preventDefault();
+    });
+
+    $('#btn_deselect').click(function(e) {
+        var selectedOpts = $('#category_questions option:selected');
+
+        selectedOpts.each(function(index) {
+            if (!containsId($(this).val(), $('#unused_questions option'))) {
+                $('#unused_questions optgroup').get(0).innerHTML += "<option value='" + $(this).val()  + "'>" + $(this).html() + "</option>"
+            }
+        });
+        $(selectedOpts).remove();
+        e.preventDefault();
+    });
+
+    $('#btn_submit').click(function(e) {
+        $('#category_questions option').each(function(index) {
+            $(this).attr("selected", "selected")
+        });
+    });
+};
+
+function containsId(id, listbox) {
+    var r = false
+    listbox.each(function(index){
+        if($(this).val() == id) {
+            r = true
+        }
+    });
+    return r
+}
+
+$(document).ready(ready);
+$(document).on('page:load', ready);

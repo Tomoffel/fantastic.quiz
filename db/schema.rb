@@ -33,8 +33,8 @@ ActiveRecord::Schema.define(version: 20141230113319) do
   add_index "categories", ["parent_id"], name: "index_categories_on_parent_id"
 
   create_table "category_to_questions", force: true do |t|
-    t.integer  "category_id_id"
-    t.integer  "question_id_id"
+    t.integer  "category_id"
+    t.integer  "question_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -3,67 +3,7 @@
     <h4>Editing Category</h4>
   </div>
   <div class="panel-body"> <%= render 'form' %></div>
-  <div class="panel-body">
-    <table class="table table-striped">
-      <thead>
-      <tr>
-        <th>Selected Questions</th>
-        <th colspan="2"></th>
-      </tr>
-      </thead>
 
-      <tbody>
-      <% @category.category_to_questions.all.each do |quest| %>
-          <tr>
-            <td>
-              <%= Question.find(quest.question_id).question %>
-            </td>
-            <td width="20">
-              <%= form_for('') do |rm| %>
-                  <%= rm.hidden_field("remove") %>
-                  <%= rm.button :Remove, class: "btn btn-danger align-right", value: quest.question_id %>
-                </td>
-              </tr>
-          <% end %>
-          </td>
-          </tr>
-      <% end %>
-      </tbody>
-    </table>
-
-    <table class="table table-striped">
-      <thead>
-      <tr>
-        <th>Not selected Questions</th>
-        <th colspan="2"></th>
-      </tr>
-      </thead>
-      <tbody>
-      <% Question.all.each do |question|
-        selected = false
-      %>
-          <% question.category_to_questions.all.each do |cats| %>
-              <% if cats.category_id == @category.id
-                   selected = true
-                 end %>
-          <% end
-             if !selected
-          %>
-              <%= form_for('') do |add| %>
-                  <tr>
-                    <td>
-                      <%= question.question %>
-                    </td>
-                    <td width="20">
-                      <%= add.button :Add, class: "btn btn-success", value: question.id %>
-                    </td>
-                  </tr>
-              <% end %>
-          <% end %>
-      <% end %>
-      </tbody>
-    </table>
-  </div>
 
 </div>
 

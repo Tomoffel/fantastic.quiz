@@ -20,6 +20,9 @@ class CategoriesController < ApplicationController
 
   def create
     @category = Category.new(category_params)
+
+    addQuestions
+
     respond_to do |format|
       if @category.save
         format.html { redirect_to categories_url, notice: 'Category was successfully created.' }
@@ -34,6 +37,11 @@ class CategoriesController < ApplicationController
 
   def update
     respond_to do |format|
+
+      # do it simple remove first all relations between this category and the questions
+      removeQuestions
+      addQuestions
+
       if @category.update(category_params)
         format.html { redirect_to categories_url, notice: 'Category was successfully updated.' }
         format.json { render :show, status: :ok, location: @category }
@@ -69,26 +77,25 @@ class CategoriesController < ApplicationController
     #respond_with(@category)
   end
 
-  def add_remove_question
-    if params['remove'] != nil
-      CategoryToQuestion.all.each do |entry|
-        if entry.category_id == params['id'].to_i and entry.question_id == params['button'].to_i
-          entry.destroy
-        end
-      end
-      flash[:notice] = 'Remove question from category'
-    else
-      CategoryToQuestion.new({'category_id' => params['id'], 'question_id' => params['button']}).save
-
-      flash[:notice] = 'Add question to category'
+  def removeQuestions
+    @category.category_to_questions.each do |rem|
+      rem.destroy
     end
+  end
 
-    redirect_to edit_category_url
+  #todo what happen if save not possible?
+  def addQuestions
+    questions = params['category']['questions']
+
+    questions.each do |id|
+      CategoryToQuestion.new({'category_id' => @category.id, 'question_id' => id}).save
+    end
   end
 
   private
   def set_category
     @category = Category.find(params[:id])
+
   end
 
   def category_params
