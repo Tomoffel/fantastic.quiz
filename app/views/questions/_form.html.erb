@@ -11,43 +11,31 @@
         </div>
     <% end %>
 
-    <table class="table table-striped">
-      <tr>
-        <td>
-          <div class="field">
-            <%= f.label :question %><br>
-            <%= f.text_field :question, class: "form-control" %> <br>
-        </div>
-        </td>
-      </tr>
+    <div class="field">
+          <%= f.label :question %><br>
+          <%= f.text_field :question, class: "form-control" %> <br>
 
-      <tr>
-        <td>
-          <%= f.label :answer1 %><br>
-          <%= f.text_field :answers1, :value => @answerValue1, class: "form-control" %>
-          <%= f.radio_button :correctMethod, 'correct1', :checked => @correctValue1 %>
-        </td>
-        <td>
-          <%= f.label :answer2 %><br>
-          <%= f.text_field :answers2, :value => @answerValue2, class: "form-control" %>
-          <%= f.radio_button :correctMethod, 'correct2', :checked => @correctValue2 %>
-        </td>
-      <tr>
-        <td>
-          <%= f.label :answer3 %><br>
-          <%= f.text_field :answers3, :value => @answerValue3, class: "form-control" %>
-          <%= f.radio_button :correctMethod, 'correct3', :checked => @correctValue3 %>
-        </td>
-        <td>
-          <%= f.label :answer4 %><br>
-          <%= f.text_field :answers4, :value => @answerValue4, class: "form-control" %>
-          <%= f.radio_button :correctMethod, 'correct4', :checked => @correctValue4 %>
-        </td>
-      </tr>
+          <%= f.label :please_insert_the_answers_and_select_the_correct_one %>
+           <!-- TODO do it with divs and space between the answers -->
+          <table style="width: 100%" >
+            <tr>
+              <td><%= f.text_field :answers1, :value => @answerValue1, class: "form-control" %></td>
+              <td><%= f.radio_button :correctMethod, 'correct1', :checked => @correctValue1 %></td>
+              <td><%= f.text_field :answers2, :value => @answerValue2, class: "form-control" %></td>
+              <td><%= f.radio_button :correctMethod, 'correct2', :checked => @correctValue2 %></td>
+            </tr>
+            <tr>
+              <td><%= f.text_field :answers3, :value => @answerValue3, class: "form-control" %></td>
+              <td><%= f.radio_button :correctMethod, 'correct3', :checked => @correctValue3 %></td>
+              <td><%= f.text_field :answers4, :value => @answerValue4, class: "form-control" %></td>
+              <td><%= f.radio_button :correctMethod, 'correct4', :checked => @correctValue4 %></td>
+            </tr>
+          </table><br>
+          <%= f.label :categories %><br>
+          <!-- TODO select the categories -->
+          <%= f.collection_select :id, Category.all, :id, :name, { }, {class: "form-control", multiple: "true" } %>
     </div>
-      <tr><td>
     <div class="actions">
-      <%= f.submit :Save, class: "btn btn-primary" %>
-    </div></td></tr>
-    </table>
+      <%= f.submit :Save, class: "btn btn-primary align-right" %>
+    </div>
 <% end %>
