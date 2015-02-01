@@ -34,6 +34,8 @@ class QuestionsController < ApplicationController
 
       @question = Question.new(question_params)
 
+      addCategories
+
       if @question.save
         if create_new_answer(params['question']['answers1'], @question.id, params['question']['correctMethod'] == 'correct1') and create_new_answer(params['question']['answers2'], @question.id, params['question']['correctMethod'] == 'correct2') and (create_new_answer(params['question']['answers3'], @question.id, params['question']['correctMethod'] == 'correct3') or params['question']['answers3'] == "") and (create_new_answer(params['question']['answers4'], @question.id, params['question']['correctMethod'] == 'correct4') or params['question']['answers4'] == "")
           respond_to do |format|
@@ -103,6 +105,9 @@ class QuestionsController < ApplicationController
         noError = noError ? create_new_answer(answer_params[4]['answer'], @question.id, answer_params[4]['correctAnswer']) : false
       end
 
+      removeCategories
+      addCategories
+
       # respond_to do |format|
         if @question.update(question_params)
           if noError
@@ -129,6 +134,9 @@ class QuestionsController < ApplicationController
   end
 
   def destroy
+
+    removeCategories
+
     @question.answers.each do |ans|
       ans.destroy
     end
@@ -142,9 +150,27 @@ class QuestionsController < ApplicationController
     #respond_with(@question)
   end
 
+  def removeCategories
+    @question.category_to_questions.each do |rem|
+      rem.destroy
+    end
+  end
+
+  def addCategories
+    params['question']['id'].each do |id|
+      if id != ""
+        CategoryToQuestion.new({'category_id' => id, 'question_id' => @question.id}).save
+      end
+    end
+  end
+
   private
   def set_question
     @question = Question.find(params[:id])
+    @categories_ids = Array.new
+    @question.categories.all.each do |cat|
+      @categories_ids.push(cat.id)
+    end
   end
 
   def question_params

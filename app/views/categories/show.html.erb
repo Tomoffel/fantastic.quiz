@@ -2,14 +2,21 @@
 
 <div class="panel panel-default">
   <div class="panel-heading">
-    <h4 style="display: inline;">Category:</h4> <%= @category.name %>
+    <h4 style="display: inline;">Category: <%= @category.name %></h4>
   </div>
   <div class="panel-body"><strong>Parent:</strong>
    [<%= @category.parent_id %>]
     <%= if @category.parent_id != nil
-          Category.all.find(@category.parent_id).name
+          parent = Category.all.find(@category.parent_id)
+          link_to parent.name, parent
         end %>
-    <br>
+    <p><br>
+    <strong>Questions of Category:</strong> <br>
+    <% index = 1
+       @category.questions.all.each do |quest| %>
+         <%= index %>.  <%= link_to quest.question, quest%> <br>
+         <% index = index + 1
+       end %>
     <%= link_to 'Edit', edit_category_path(@category), class: "btn btn-primary align-right" %>
   </div>
 </div>

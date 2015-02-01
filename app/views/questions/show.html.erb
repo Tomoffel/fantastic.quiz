@@ -1,37 +1,25 @@
 <div class="panel panel-default">
   <div class="panel-heading">
-    <h4 style="display: inline;">Question:</h4> <%= @question.question %>
+    <h4 style="display: inline;"><%= @question.question %></h4>
   </div>
   <div class="panel-body">
 
-<table class="table table-striped">
-  <tr>
-    <td colspan="2"><strong>Answers:</strong>
+    <strong>Answers:</strong>
       <% index = 1 %>
       <% @question.answers.each do |ans| %>
-          <% if ans.question_id == @question.id %>
-          <tr>
-            <td width="20"><%= index %></td>
-            <% index = index + 1 %>
-            <td
-            <% if ans.correctAnswer %>
-            class="success"
+        <div <% if ans.correctAnswer %>
+             style="background-color: #00CD00;"
             <% end %>>
-              <div>
-                <%= ans.answer %>
-                <% if ans.correctAnswer %>
-                    (Correct)
-                <% end %>
-              </div>
-            </td>
-          </tr>
-      <% end %>
-  <% end %>
-  </td>
-  </tr>
-
-  </p>
-</table>
+        <%= index %>. <%= ans.answer %>
+        <% index = index + 1 %>
+        </div>
+      <% end %><br><p>
+    <strong>Categories of Question:</strong> <br>
+    <% index = 1
+       @question.categories.all.each do |cat| %>
+        <%= index %>.  <%= link_to cat.name, cat%> <br>
+        <% index = index + 1
+       end %>
 
 <%= link_to 'Edit', edit_question_path(@question), class: 'btn btn-primary align-right' %>
   </div>

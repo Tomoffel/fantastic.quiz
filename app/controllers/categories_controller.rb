@@ -56,6 +56,8 @@ class CategoriesController < ApplicationController
   def destroy
     flag = false
 
+    removeQuestions
+
     Category.all.each do |category|
       if category.parent_id == @category.id
         flag = true
@@ -88,7 +90,9 @@ class CategoriesController < ApplicationController
     questions = params['category']['questions']
 
     questions.each do |id|
-      CategoryToQuestion.new({'category_id' => @category.id, 'question_id' => id}).save
+      if id != ""
+        CategoryToQuestion.new({'category_id' => @category.id, 'question_id' => id}).save
+      end
     end
   end
 
