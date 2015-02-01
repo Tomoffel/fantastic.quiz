@@ -20,10 +20,13 @@ class CategoriesController < ApplicationController
 
   def create
     @category = Category.new(category_params)
+
+    addQuestions
+
     respond_to do |format|
       if @category.save
         format.html { redirect_to categories_url, notice: 'Category was successfully created.' }
-        format.json { render :show, status: :created, location: @category}
+        format.json { render :show, status: :created, location: @category }
       else
         format.html { render :new }
         format.json { render json: @category.errors, status: :unprocessable_entity }
@@ -33,8 +36,12 @@ class CategoriesController < ApplicationController
   end
 
   def update
-
     respond_to do |format|
+
+      # do it simple remove first all relations between this category and the questions
+      removeQuestions
+      addQuestions
+
       if @category.update(category_params)
         format.html { redirect_to categories_url, notice: 'Category was successfully updated.' }
         format.json { render :show, status: :ok, location: @category }
@@ -70,12 +77,28 @@ class CategoriesController < ApplicationController
     #respond_with(@category)
   end
 
-  private
-    def set_category
-      @category = Category.find(params[:id])
+  def removeQuestions
+    @category.category_to_questions.each do |rem|
+      rem.destroy
     end
+  end
 
-    def category_params
-      params.require(:category).permit(:name, :parent_id)
+  #todo what happen if save not possible?
+  def addQuestions
+    questions = params['category']['questions']
+
+    questions.each do |id|
+      CategoryToQuestion.new({'category_id' => @category.id, 'question_id' => id}).save
     end
+  end
+
+  private
+  def set_category
+    @category = Category.find(params[:id])
+
+  end
+
+  def category_params
+    params.require(:category).permit(:name, :parent_id)
+  end
 end

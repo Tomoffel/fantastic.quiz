@@ -16,14 +16,42 @@
       <%= f.label :name %>
       <br>
       <%= f.text_field :name, class: "form-control" %>
-    </div>
-    <div class="field">
+      <br>
       <%= f.label :parent_id %>
       <br>
       <%=
-          f.collection_select :parent_id, Category.all, :id, :name, { selected: @category.parent_id, :include_blank => true} %>
+          f.collection_select :parent_id, Category.all, :id, :name, {selected: @category.parent_id, :include_blank => true}, class: "form-control" %>
+      <br>
+      <%= f.label :selected_questions %>
+      <%= f.collection_select :questions, @category.questions, :id, :question, {}, { multiple: true, class: "form-control"  }%>
+      <br>
+      <div align="center">
+         <button id="btn_select" class="btn btn-success">Select</button>
+         <button id="btn_deselect" class="btn btn-warning">Deselect</button>
+      </div>
+      <br>
+      <%= f.label :all_questions %>
+      <select class="form-control" id="unused_questions" multiple="multiple">
+      <optgroup value="category" label="Questions without Category"/>
+      <% Question.all.each do |quest|
+            if quest.categories.empty? %>
+              <option value="<%= quest.id %>"><%= quest.question  %></option>
+            <% end
+         end
+         Category.all.each do |cat| %>
+           <% if !cat.questions.empty? && cat.id != @category.id %>
+             <optgroup value="category" label="Questions of Category: <%= cat.name %>"/>
+             <% cat.questions.all.each do |quest| %>
+                <option value="<%= quest.id %>"><%= quest.question  %></option>
+             <%
+                end
+           end
+          end
+       %>
+       </select>
     </div>
+
     <div class="actions">
-      <%= f.submit :Save, class: "btn btn-primary align-right" %>
+      <%= f.submit :Save, {class: "btn btn-primary align-right", id: "btn_submit" } %>
     </div>
 <% end %>
