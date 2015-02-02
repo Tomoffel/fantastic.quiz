@@ -47,7 +47,20 @@ var ready = function() {
             $(this).attr("selected", "selected")
         });
     });
+
+    $( "#category_questions" ).dblclick(function() {
+        openWindow("/questions/" + $('#category_questions option:selected').val());
+    });
+
+    $( "#unused_questions" ).dblclick(function() {
+        openWindow("/questions/" + $('#unused_questions option:selected').val());
+    });
 };
+
+function openWindow(address) {
+    questionWindow = window.open(address, "_blank");
+    questionWindow.focus();
+}
 
 function containsId(id, listbox) {
     var r = false

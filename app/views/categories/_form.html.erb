@@ -24,13 +24,14 @@
       <br>
       <%= f.label :selected_questions %>
       <%= f.collection_select :questions, @category.questions, :id, :question, {}, { multiple: true, class: "form-control"  }%>
+      Doubleclick to show questions
       <br>
       <div align="center">
          <button id="btn_select" class="btn btn-success">Select</button>
          <button id="btn_deselect" class="btn btn-warning">Deselect</button>
       </div>
       <br>
-      <%= f.label :all_questions %>
+      <%= f.label :other_questions %>
       <select class="form-control" id="unused_questions" multiple="multiple">
       <optgroup value="category" label="Questions without Category"/>
       <% Question.all.each do |quest|
@@ -49,6 +50,7 @@
           end
        %>
        </select>
+      Doubleclick to show questions
     </div>
 
     <div class="actions">
