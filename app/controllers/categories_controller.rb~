@@ -107,12 +107,15 @@ class CategoriesController < ApplicationController
   private
   def set_category
     @category = Category.find(params[:id])
-  end
+<<<<<<< HEAD
+=======
+     end
 
   #TODO Dry between this and questions_controller
   def set_questions_and_categories
     @questions = Question.all.where(:id => UserToQuestion.all.where(:user_id => current_user.id).map(&:question_id))
     @categories = Category.all.where(:id => UserToCategory.all.where(:user_id => current_user.id).map(&:category_id))
+>>>>>>> UserStory16
   end
 
   def category_params
