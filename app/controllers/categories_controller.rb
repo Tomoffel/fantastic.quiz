@@ -21,10 +21,9 @@ class CategoriesController < ApplicationController
   def create
     @category = Category.new(category_params)
 
-    addQuestions
-
     respond_to do |format|
       if @category.save
+        addQuestions
         format.html { redirect_to categories_url, notice: 'Category was successfully created.' }
         format.json { render :show, status: :created, location: @category }
       else

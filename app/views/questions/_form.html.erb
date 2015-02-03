@@ -20,22 +20,22 @@
       <table style="width: 100%" >
         <tr>
           <td><%= f.text_field :answers1, :value => @answerValue1, class: "form-control" %></td>
-          <td><%= f.radio_button :correctMethod, 'correct1', :checked => @correctValue1 %></td>
+          <td><%= f.radio_button :correctMethod, :correct1, :checked => @correctValue1 %></td>
           <td><%= f.text_field :answers2, :value => @answerValue2, class: "form-control" %></td>
-          <td><%= f.radio_button :correctMethod, 'correct2', :checked => @correctValue2 %></td>
+          <td><%= f.radio_button :correctMethod, :correct2, :checked => @correctValue2 %></td>
         </tr>
         <tr>
           <td><%= f.text_field :answers3, :value => @answerValue3, class: "form-control" %></td>
-          <td><%= f.radio_button :correctMethod, 'correct3', :checked => @correctValue3 %></td>
+          <td><%= f.radio_button :correctMethod, :correct3, :checked => @correctValue3 %></td>
           <td><%= f.text_field :answers4, :value => @answerValue4, class: "form-control" %></td>
-          <td><%= f.radio_button :correctMethod, 'correct4', :checked => @correctValue4 %></td>
+          <td><%= f.radio_button :correctMethod, :correct4, :checked => @correctValue4 %></td>
         </tr>
       </table><br>
       <%= f.label :categories %><br>
       <%= f.collection_select :id, Category.all, :id, :name, { selected: @categories_ids }, {class: "form-control", multiple: "true" } %>
-      <%  %>
     </div>
-    <div class="actions">
-      <%= f.submit :Save, class: "btn btn-primary align-right" %>
+    <div class="actions align-right">
+      <%= f.submit "Save and new question", class: "btn btn-success" %>
+      <%= f.submit :Save, class: "btn btn-primary" %>
     </div>
 <% end %>
