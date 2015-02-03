@@ -14,8 +14,6 @@ class QuestionsController < ApplicationController
   def new
     @question = Question.new
 
-    @categories_ids= Array.new
-    @categories_ids.push(params[:category_id])
 
     # add default selected answer
     @correctValue1 = true
@@ -204,6 +202,13 @@ class QuestionsController < ApplicationController
   def set_category_ids
     if params[:cats] != nil
       @categories_ids = params[:cats]
+    end
+
+    if params[:category_id] != nil
+      if @categories_ids == nil
+        @categories_ids = Array.new
+      end
+      @categories_ids.push(params[:category_id])
     end
   end
 
