@@ -1,4 +1,5 @@
 class CategoriesController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_category, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -86,7 +87,7 @@ class CategoriesController < ApplicationController
 
   #todo what happen if save not possible?
   def addQuestions
-    questions = params['category']['questions']
+    questions = params[:category][:questions]
 
     questions.each do |id|
       if id != ""
@@ -98,7 +99,6 @@ class CategoriesController < ApplicationController
   private
   def set_category
     @category = Category.find(params[:id])
-
   end
 
   def category_params
