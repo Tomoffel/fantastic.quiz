@@ -1,6 +1,7 @@
 class QuestionsController < ApplicationController
   before_action :set_question, only: [:show, :edit, :update, :destroy]
   before_action :set_category_ids, only: [:new, :show]
+  before_action :set_questions_and_categories, only: [:edit, :index, :new, :show]
 
   def index
     @questions = Question.all
@@ -13,7 +14,6 @@ class QuestionsController < ApplicationController
 
   def new
     @question = Question.new
-
 
     # add default selected answer
     @correctValue1 = true
@@ -212,5 +212,10 @@ class QuestionsController < ApplicationController
 
   def question_params
     params.require(:question).permit(:question)
+  end
+
+  def set_questions_and_categories
+    @questions = Question.all.where(:id => UserToQuestion.all.where(:user_id => current_user.id).map(&:question_id))
+    @categories = Category.all.where(:id => UserToCategory.all.where(:user_id => current_user.id).map(&:category_id))
   end
 end

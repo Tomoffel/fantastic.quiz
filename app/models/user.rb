@@ -5,5 +5,5 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :user_to_categories
-  has_many :categories, through: :user_to_categories
+  has_many :user_to_questions
 end

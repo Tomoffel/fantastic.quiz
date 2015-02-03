@@ -32,7 +32,7 @@
         </tr>
       </table><br>
       <%= f.label :categories %><br>
-      <%= f.collection_select :id, Category.all, :id, :name, { selected: @categories_ids }, {class: "form-control", multiple: "true" } %>
+      <%= f.collection_select :id, @categories, :id, :name, { selected: @categories_ids }, {class: "form-control", multiple: "true" } %>
     </div>
     <div class="actions align-right">
       <%= f.submit "Save and new question", class: "btn btn-success" %>

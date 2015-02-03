@@ -1,6 +1,6 @@
 class CategoriesController < ApplicationController
   before_action :set_category, only: [:show, :edit, :update, :destroy]
-  before_action :set_categories, only: [:edit, :index, :new, :show]
+  before_action :set_questions_and_categories, only: [:edit, :index, :new, :show]
 
   def index
     #respond_with(@categories)
@@ -108,7 +108,9 @@ class CategoriesController < ApplicationController
     @category = Category.find(params[:id])
      end
 
-  def set_categories
+  #TODO Dry between this and questions_controller
+  def set_questions_and_categories
+    @questions = Question.all.where(:id => UserToQuestion.all.where(:user_id => current_user.id).map(&:question_id))
     @categories = Category.all.where(:id => UserToCategory.all.where(:user_id => current_user.id).map(&:category_id))
   end
 

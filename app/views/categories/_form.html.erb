@@ -35,12 +35,12 @@
       <%= f.label :other_questions %>
       <select class="form-control" id="unused_questions" multiple="multiple">
       <optgroup value="category" label="Questions without Category"/>
-      <% Question.all.each do |quest|
+      <% @questions.each do |quest|
             if quest.categories.empty? %>
               <option value="<%= quest.id %>"><%= quest.question  %></option>
             <% end
          end
-         Category.all.each do |cat| %>
+         @categories.each do |cat| %>
            <% if !cat.questions.empty? && cat.id != @category.id %>
              <optgroup value="category" label="Questions of Category: <%= cat.name %>"/>
              <% cat.questions.all.each do |quest| %>
