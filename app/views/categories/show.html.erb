@@ -5,11 +5,11 @@
     <h4 style="display: inline;">Category: <%= @category.name %></h4>
   </div>
   <div class="panel-body"><strong>Parent:</strong>
-   [<%= @category.parent_id %>]
-    <%= if @category.parent_id != nil
-          parent = Category.all.find(@category.parent_id)
-          link_to parent.name, parent
-        end %>
+    <% parent = @categories.where(:id => @category.parent_id).first
+        if @category.parent_id != nil && parent != nil %>
+        [<%= @category.parent_id %>]
+        <%= link_to parent.name, parent %>
+        <% end %>
     <p><br>
     <strong>Questions of Category:</strong> <br>
     <% index = 1

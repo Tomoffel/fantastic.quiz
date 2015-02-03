@@ -175,9 +175,7 @@ class QuestionsController < ApplicationController
   end
 
   def removeCategories
-    @question.category_to_questions.each do |rem|
-      rem.destroy
-    end
+    @question.category_to_questions.destroy_all
   end
 
   def addCategories

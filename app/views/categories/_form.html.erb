@@ -20,7 +20,7 @@
       <%= f.label :parent_id %>
       <br>
       <%=
-          f.collection_select :parent_id, Category.all, :id, :name, {selected: @category.parent_id, :include_blank => true}, class: "form-control" %>
+          f.collection_select :parent_id, @categories, :id, :name, {selected: @category.parent_id, :include_blank => true}, class: "form-control" %>
       <br>
       <%= f.label :selected_questions %>
       <%= f.collection_select :questions, @category.questions, :id, :question, {}, { multiple: true, class: "form-control"  }%>

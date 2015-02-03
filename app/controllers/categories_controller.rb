@@ -1,8 +1,8 @@
 class CategoriesController < ApplicationController
   before_action :set_category, only: [:show, :edit, :update, :destroy]
+  before_action :set_categories, only: [:edit, :index, :new, :show]
 
   def index
-    @categories = Category.all
     #respond_with(@categories)
   end
 
@@ -24,6 +24,7 @@ class CategoriesController < ApplicationController
     respond_to do |format|
       if @category.save
         addQuestions
+        addUser
         format.html { redirect_to categories_url, notice: 'Category was successfully created.' }
         format.json { render :show, status: :created, location: @category }
       else
@@ -56,6 +57,7 @@ class CategoriesController < ApplicationController
     flag = false
 
     removeQuestions
+    removeUsers
 
     Category.all.each do |category|
       if category.parent_id == @category.id
@@ -79,9 +81,7 @@ class CategoriesController < ApplicationController
   end
 
   def removeQuestions
-    @category.category_to_questions.each do |rem|
-      rem.destroy
-    end
+    @category.category_to_questions.destroy_all
   end
 
   #todo what happen if save not possible?
@@ -95,10 +95,21 @@ class CategoriesController < ApplicationController
     end
   end
 
+  def addUser
+    UserToCategory.new({'category_id' => @category.id, 'user_id' => current_user.id}).save
+  end
+
+  def removeUsers
+    @category.user_to_categories.destroy_all
+  end
+
   private
   def set_category
     @category = Category.find(params[:id])
+     end
 
+  def set_categories
+    @categories = Category.all.where(:id => UserToCategory.all.where(:user_id => current_user.id).map(&:category_id))
   end
 
   def category_params
