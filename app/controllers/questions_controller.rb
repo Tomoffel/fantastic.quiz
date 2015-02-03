@@ -1,5 +1,6 @@
 class QuestionsController < ApplicationController
   before_action :set_question, only: [:show, :edit, :update, :destroy]
+  before_action :set_category_ids, only: [:new, :show]
 
   def index
     @questions = Question.all
@@ -29,18 +30,25 @@ class QuestionsController < ApplicationController
   end
 
   def create
-    # todo errors save values
+    #TODO new values by error
+    setVariables
+
     if check_guilty_answers
 
       @question = Question.new(question_params)
 
-      addCategories
-
       if @question.save
-        if create_new_answer(params['question']['answers1'], @question.id, params['question']['correctMethod'] == 'correct1') and create_new_answer(params['question']['answers2'], @question.id, params['question']['correctMethod'] == 'correct2') and (create_new_answer(params['question']['answers3'], @question.id, params['question']['correctMethod'] == 'correct3') or params['question']['answers3'] == "") and (create_new_answer(params['question']['answers4'], @question.id, params['question']['correctMethod'] == 'correct4') or params['question']['answers4'] == "")
+        addCategories
+        if create_new_answer(@answerValue1, @question.id, @correctValue1) and create_new_answer(@answerValue2, @question.id, @correctValue2) and (create_new_answer(@answerValue3, @question.id, @correctValue3) or @answerValue3 == "") and (create_new_answer(@answerValue4, @question.id, @correctValue4) or @answerValue4 == "")
           respond_to do |format|
-            format.html { redirect_to questions_url, notice: 'Question successfully created!' }
-            format.json { render :show, status: :created, location: @question }
+            if params[:commit] == "Save"
+              format.html { redirect_to questions_url, notice: 'Question successfully created!' + params}
+              format.json { render :show, status: :created, location: @question }
+            else
+              format.html { redirect_to new_question_path(:cats=>params[:question][:id]), notice: 'Question successfully created!' }
+              format.json { render :show, status: :created, location: @question }
+            end
+
           end
         else
           @question.destroy
@@ -67,15 +75,18 @@ class QuestionsController < ApplicationController
   end
 
   def check_guilty_answers()
-    return (params['question']['answers1'] != "" and params['question']['answers2'] != "" and (params['question']['correctMethod'] == 'correct1' or params['question']['correctMethod'] == 'correct2' or (params['question']['answers3'] != "" and params['question']['correctMethod'] == 'correct3') or (params['question']['answers3'] != "" and params['question']['correctMethod'] == 'correct3')))
+    return (@answerValue1 != "" and @answerValue2 != "" and (@correctValue1 or @correctValue2 or (@answerValue3 != "" and @correctValue3) or (@answerValue4 != "" and @correctValue4)))
   end
 
   def update
+    #TODO new values by error
+    setVariables
+
     if (check_guilty_answers)
-      answer_params = {1 => {'answer' => params['question']['answers1'], 'correctAnswer' => params['question']['correctMethod'] == 'correct1'},
-                       2 => {'answer' => params['question']['answers2'], 'correctAnswer' => params['question']['correctMethod'] == 'correct2'},
-                       3 => {'answer' => params['question']['answers3'], 'correctAnswer' => params['question']['correctMethod'] == 'correct3'},
-                       4 => {'answer' => params['question']['answers4'], 'correctAnswer' => params['question']['correctMethod'] == 'correct4'}}
+      answer_params = {1 => {'answer' => @answerValue1, 'correctAnswer' => @correctValue1},
+                       2 => {'answer' => @answerValue2, 'correctAnswer' => @correctValue2},
+                       3 => {'answer' => @answerValue3, 'correctAnswer' => @correctValue3},
+                       4 => {'answer' => @answerValue4, 'correctAnswer' => @correctValue4}}
 
       noError = true
 
@@ -112,9 +123,11 @@ class QuestionsController < ApplicationController
         if @question.update(question_params)
           if noError
             flash[:notice] = 'Question successfully updated!'
-            redirect_to edit_question_url
-            # format.html { redirect_to questions_url, notice: 'Question successfully updated!' }
-            # format.json { render :show, status: :ok, location: @question }
+            if params[:commit] == "Save"
+              redirect_to edit_question_url
+            else
+              redirect_to new_question_path(:cats=>params[:question][:id])
+            end
           else
             flash[:warning] = 'Not enough or no correct answer.'
             redirect_to edit_question_url
@@ -122,8 +135,6 @@ class QuestionsController < ApplicationController
         else
           flash[:notice] = 'No question text!'
           redirect_to edit_question_url
-          # format.html { render :edit }
-          # format.json { render json: @question.errors, status: :unprocessable_entity }
         end
     else
       flash[:warning] = 'Not enough or no correct answer.'
@@ -150,6 +161,17 @@ class QuestionsController < ApplicationController
     #respond_with(@question)
   end
 
+  def setVariables()
+    @answerValue1 = params[:question][:answers1]
+    @correctValue1 = params[:question][:correctMethod] == "correct1"
+    @answerValue2 = params[:question][:answers2]
+    @correctValue2 = params[:question][:correctMethod] == "correct2"
+    @answerValue3 = params[:question][:answers3]
+    @correctValue3 = params[:question][:correctMethod] == "correct3"
+    @answerValue4 = params[:question][:answers4]
+    @correctValue4 = params[:question][:correctMethod] == "correct4"
+  end
+
   def removeCategories
     @question.category_to_questions.each do |rem|
       rem.destroy
@@ -157,7 +179,7 @@ class QuestionsController < ApplicationController
   end
 
   def addCategories
-    params['question']['id'].each do |id|
+    params[:question][:id].each do |id|
       if id != ""
         CategoryToQuestion.new({'category_id' => id, 'question_id' => @question.id}).save
       end
@@ -168,8 +190,15 @@ class QuestionsController < ApplicationController
   def set_question
     @question = Question.find(params[:id])
     @categories_ids = Array.new
+
     @question.categories.all.each do |cat|
       @categories_ids.push(cat.id)
+    end
+  end
+
+  def set_category_ids
+    if params[:cats] != nil
+      @categories_ids = params[:cats]
     end
   end
 
