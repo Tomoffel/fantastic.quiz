@@ -29,6 +29,7 @@
       <div align="center">
          <button id="btn_select" class="btn btn-success">Select</button>
          <button id="btn_deselect" class="btn btn-warning">Deselect</button>
+         <%= link_to 'New Question', new_question_path(:category_id=>@category.id), class: 'btn btn-primary' %>
       </div>
       <br>
       <%= f.label :other_questions %>

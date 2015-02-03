@@ -12,6 +12,10 @@ class QuestionsController < ApplicationController
 
   def new
     @question = Question.new
+
+    @categories_ids= Array.new
+    @categories_ids.push(params[:category_id])
+
     # add default selected answer
     @correctValue1 = true
     #respond_with(@question)
@@ -171,6 +175,7 @@ class QuestionsController < ApplicationController
     @question.categories.all.each do |cat|
       @categories_ids.push(cat.id)
     end
+
   end
 
   def question_params

@@ -32,7 +32,6 @@
         </tr>
       </table><br>
       <%= f.label :categories %><br>
-      <!-- TODO select the categories -->
       <%= f.collection_select :id, Category.all, :id, :name, { selected: @categories_ids }, {class: "form-control", multiple: "true" } %>
       <%  %>
     </div>
