@@ -1,0 +1,31 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h4>Quiz-Round <%= @category.name %></h4>
+  </div>
+  <div class="panel-body">
+    <% if @question == nil %>
+        No question
+    <% else %>
+        <%= @question.question %>
+        <table>
+          <% @question.answers %>
+        </table>
+    <% end %>
+    <% index = 1 %>
+    <% @question.answers.each do |ans| %>
+        <div <% if ans.correctAnswer && @answerChoose == 1 %>
+                style="background-color: #00CD00;"
+             <% else if index == @selectedAnswer.to_i && @answerChoose == 1 %>
+                style="background-color: #cd0000;"
+             <% end end %>>
+          <%= radio_button(:select, :question, index.to_s, {:checked => index == @selectedAnswer.to_i, :class => "checked_radio"}) %>
+          <%= ans.answer %>
+          <% index = index + 1 %>
+        </div>
+    <% end %>
+    <% if @answerChoose != 1 %>
+        <%= link_to "Check Answer", quiz_round_check_url(:question => @question.id, :category => @category.id, :selectedAnswer => @selectedAnswer), {class: "btn btn-primary", id: "btn_check"} %>
+    <% end %>
+    <%= link_to "Next Questions", quiz_round_url(:category => @category.id), class: "btn btn-primary" %>
+  </div>
+</div>

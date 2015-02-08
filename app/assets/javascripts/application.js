@@ -55,6 +55,13 @@ var ready = function() {
     $( "#unused_questions" ).dblclick(function() {
         openWindow("/questions/" + $('#unused_questions option:selected').val());
     });
+
+    $( ".checked_radio").each(function() {
+        $(this).click(function() {
+            var link = $("#btn_check").attr("href")
+            $("#btn_check").attr("href",  link.substr(0, link.length-1) + $(this).attr("value"))
+        })
+    })
 };
 
 function openWindow(address) {
