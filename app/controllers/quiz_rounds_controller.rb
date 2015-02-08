@@ -13,14 +13,15 @@ class QuizRoundsController < ApplicationController
       @selectedAnswer = 1
 
       #todo do it dry (questions/categories)
-      @children = Category.all.where(:id => UserToCategory.all.where(:user_id => current_user.id)).where(:parent_id => @category.id)
+      @children = Category.where(:id => UserToCategory.where(:user_id => current_user.id)).where(:parent_id => @category.id)
       @questions = @category.questions
 
       #get questions from children
       @children.each do |child|
-        @questions = @questions
+        @questions.push( child.questions )
       end
-      # @questions = @questions.all.where('id not in (?)',QuizRound.all.where(:user_id => current_user.id, :category_id => @category.id).map(&:question_id))
+
+      @questions = @questions.where.not(:id => QuizRound.where("category_id" => @category.id, "user_id" => current_user.id).map(&:question).map(&:id))
       length = @questions.count
 
       if length == 0
@@ -29,6 +30,13 @@ class QuizRoundsController < ApplicationController
         getNextQuestion(length)
       end
     end
+  end
+
+  def new
+    categoryId = params[:category]
+    QuizRound.where("category_id" => categoryId, "user_id" => current_user.id).destroy_all
+
+    redirect_to quiz_round_url(:category=> categoryId)
   end
 
   def getNextQuestion(length)
@@ -43,7 +51,23 @@ class QuizRoundsController < ApplicationController
   end
 
   def check
-    redirect_to quiz_round_url(:category=>params[:category], :question=>params[:question], :selectedAnswer => params[:selectedAnswer])
+    categoryId = params[:category]
+    questionId = params[:question]
+
+    question = Question.find(params[:question])
+
+    correct = false
+    index = 1
+    question.answers.each do |ans|
+      if index == params[:selectedAnswer].to_i && ans.correctAnswer
+        correct = true
+      end
+      index = index + 1
+    end
+
+    QuizRound.create("category_id" => categoryId, "question_id" => questionId, "user_id" => current_user.id, "correct" => correct)
+
+    redirect_to quiz_round_url(:category=> categoryId, :question=>questionId, :selectedAnswer => params[:selectedAnswer])
   end
 
 end

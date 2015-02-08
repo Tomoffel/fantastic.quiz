@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
   get '/quiz_round', :to => 'quiz_rounds#index'
   get '/quiz_round/check', :to => 'quiz_rounds#check'
+  get '/quiz_round/new', :to => 'quiz_rounds#new'
 
   # You can have the root of your site routed with "root"
   root 'welcome#index'
