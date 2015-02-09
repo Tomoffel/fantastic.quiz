@@ -18,16 +18,19 @@ class QuizRoundsController < ApplicationController
 
       #get questions from children
       @children.each do |child|
-        @questions.push( child.questions )
+        @questions = @questions + child.questions
       end
 
-      @questions = @questions.where.not(:id => QuizRound.where("category_id" => @category.id, "user_id" => current_user.id).map(&:question).map(&:id))
+      QuizRound.where("category_id" => @category.id, "user_id" => current_user.id).map(&:question).each do |rem|
+        @questions.delete(rem)
+      end
+
       length = @questions.count
 
       if length == 0
         #all questions done
       else
-        getNextQuestion(length)
+        @question = @questions[rand(length)]
       end
     end
   end
@@ -37,18 +40,6 @@ class QuizRoundsController < ApplicationController
     QuizRound.where("category_id" => categoryId, "user_id" => current_user.id).destroy_all
 
     redirect_to quiz_round_url(:category=> categoryId)
-  end
-
-  #todo use index to get question
-  def getNextQuestion(length)
-    randNumber = rand(length)
-    count = 0
-    @questions.each do |quest|
-      if count == randNumber
-        @question = quest
-      end
-      count = count + 1
-    end
   end
 
   def check
