@@ -25,7 +25,7 @@ class QuizRoundsController < ApplicationController
       length = @questions.count
 
       if length == 0
-      #all questions done
+        #all questions done
       else
         getNextQuestion(length)
       end
@@ -39,6 +39,7 @@ class QuizRoundsController < ApplicationController
     redirect_to quiz_round_url(:category=> categoryId)
   end
 
+  #todo use index to get question
   def getNextQuestion(length)
     randNumber = rand(length)
     count = 0

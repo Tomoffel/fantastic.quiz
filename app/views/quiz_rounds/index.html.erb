@@ -7,9 +7,6 @@
         No more questions
     <% else %>
         <%= @question.question %>
-        <table>
-          <% @question.answers %>
-        </table>
         <% index = 1 %>
         <% @question.answers.each do |ans| %>
             <div <% if ans.correctAnswer && @answerChoose == 1 %>
