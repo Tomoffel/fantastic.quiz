@@ -7,19 +7,34 @@
 
     <div class="panel-body">
       <% if current_user %>
-
+          <h3>Welcome!</h3>
+          <div>
+            <table>
+          <tr><td><p>You now have the ability to create your own questionnaire and start your own quiz to train yourself.
+          </p>
+          <p>How to start?</p>
+          <ol>
+            <li>Create a question</li>
+            <li>Attach a category or create a new one</li>
+            <li>Start a new quiz</li>
+          </ol>
+          <p>Only you have access to delete and change your categories and their related questions!</p>
+          <p>Sharing your questionnaire with friends enables them to take benefit from your work.</p>
+          <p>And of corse it works the other way round as well.</p></td>
+            <td><img alt="Rails" src="/images/zeiger.png"/></td></tr></table>
+          </div>
       <% else %>
-          <h3>Du suchst eine innovative Möglichkeit dein Wissen zu testen?</h3>
+          <p>You are searching for an innovative opportunity to test your knowledge?</p>
+          <p>You have to learn for a test but no idea how to start?</p>
 
-          <h3>Wir bieten dir eine Lernplattform, die es dir ermöglicht deinen ganz persönlichen Fragenkatalog zu
-            gestalten
-            und mit deinen Freunden zu teilen.</h3>
+          <p>We offer you a study platform that gives you the ability to create your own questionnaire.
+            Start your round of questions and be hero!</p>
 
-          <h3>Zudem gibt es auch die Möglichkeit auf freigegebene Kataloge zuzugreifen.</h3>
+          <p>Share your questionnaire with your friends and give them the chance to be as cool as you!</p>
 
           <img alt="Rails" src="/images/quiz.jpg"/>
 
-          <h3>Noch nicht dabei? Hier geht es zur Anmeldung! </h3>
+          <h3>Get close to the action! Do your registration now! </h3>
           <br>
            <div align="center"> <%= link_to 'Sign up', new_user_registration_path, class: 'btn btn-danger' %> </div>
 
