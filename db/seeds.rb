@@ -58,6 +58,7 @@ CategoryToQuestion.create(question_id: question5.id, category_id: it.id)
 
 adminUser = User.create(email: "admin@admin.de", password: 'adminadmin', password_confirmation: 'adminadmin')
 
+
 UserToCategory.create(user_id: adminUser.id, category_id: vwl.id)
 UserToCategory.create(user_id: adminUser.id, category_id: bwl.id)
 UserToCategory.create(user_id: adminUser.id, category_id: it.id)
@@ -71,3 +72,4 @@ UserToQuestion.create(question_id: question4.id, user_id: adminUser.id)
 UserToQuestion.create(question_id: question5.id, user_id: adminUser.id)
 UserToQuestion.create(question_id: question6.id, user_id: adminUser.id)
 UserToQuestion.create(question_id: question7.id, user_id: adminUser.id)
+

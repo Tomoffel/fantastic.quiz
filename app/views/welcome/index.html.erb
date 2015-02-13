@@ -1,1 +1,30 @@
-<h1>Fantastic Quiz</h1>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h1>Fantastic Quiz</h1>
+  </div>
+
+  <div>
+
+    <div class="panel-body">
+      <% if current_user %>
+
+      <% else %>
+          <h3>Du suchst eine innovative Möglichkeit dein Wissen zu testen?</h3>
+
+          <h3>Wir bieten dir eine Lernplattform, die es dir ermöglicht deinen ganz persönlichen Fragenkatalog zu
+            gestalten
+            und mit deinen Freunden zu teilen.</h3>
+
+          <h3>Zudem gibt es auch die Möglichkeit auf freigegebene Kataloge zuzugreifen.</h3>
+
+          <img alt="Rails" src="/images/quiz.jpg"/>
+
+          <h3>Noch nicht dabei? Hier geht es zur Anmeldung! </h3>
+          <br>
+           <div align="center"> <%= link_to 'Sign up', new_user_registration_path, class: 'btn btn-danger' %> </div>
+
+
+      <% end %>
+    </div>
+  </div>
+</div>
