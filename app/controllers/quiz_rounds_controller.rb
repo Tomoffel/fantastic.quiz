@@ -13,26 +13,33 @@ class QuizRoundsController < ApplicationController
       @selectedAnswer = 1
 
       #todo do it dry (questions/categories)
-      @children = Category.where(:id => UserToCategory.where(:user_id => current_user.id)).where(:parent_id => @category.id)
-      @questions = @category.questions
+      questions = getQuestions(@category)
 
-      #get questions from children
-      @children.each do |child|
-        @questions = @questions + child.questions
-      end
-
-      QuizRound.where("category_id" => @category.id, "user_id" => current_user.id).map(&:question).each do |rem|
-        @questions.delete(rem)
-      end
-
-      length = @questions.count
+      length = questions.count
 
       if length == 0
         #all questions done
       else
-        @question = @questions[rand(length)]
+        @question = questions[rand(length)]
       end
     end
+  end
+
+  def getQuestions(category)
+    #todo do it dry (questions/categories)
+    children = Category.where(:id => UserToCategory.where(:user_id => current_user.id)).where(:parent_id => category.id)
+    questions = category.questions
+
+    #get questions from children
+    children.each do |child|
+      questions = questions + child.questions
+    end
+
+    QuizRound.where("category_id" => category.id, "user_id" => current_user.id).map(&:question).each do |rem|
+      questions.delete(rem)
+    end
+
+    return questions
   end
 
   def new
@@ -60,6 +67,21 @@ class QuizRoundsController < ApplicationController
     QuizRound.create("category_id" => categoryId, "question_id" => questionId, "user_id" => current_user.id, "correct" => correct)
 
     redirect_to quiz_round_url(:category=> categoryId, :question=>questionId, :selectedAnswer => params[:selectedAnswer])
+  end
+
+  def falseRound
+    categoryId = params[:category]
+    questions = getQuestions(Category.find(categoryId))
+
+    # set not answered questions as correct
+    questions.each do |quest|
+      QuizRound.create("category_id" => categoryId, "question_id" => quest.id, "user_id" => current_user.id, "correct" => true)
+    end
+
+    # remove all false questions
+    QuizRound.where("category_id" => categoryId, "user_id" => current_user.id, "correct" => false).destroy_all
+
+    redirect_to quiz_round_url(:category=> categoryId)
   end
 
 end

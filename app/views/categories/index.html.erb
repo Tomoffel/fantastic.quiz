@@ -24,9 +24,12 @@
               parent.name
             end %></td>
         <td><%= link_to 'Show', category, class: 'btn btn-default' %>
-        <%= link_to 'Edit', edit_category_path(category), class: 'btn btn-default' %>
-        <%= link_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-default' %>
-        <%= link_to 'Start new Quiz', quiz_round_new_path(:category => category), class: 'btn btn-default' %></td>
+            <%= link_to 'Edit', edit_category_path(category), class: 'btn btn-default' %>
+            <%= link_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-default' %>
+            <%= link_to 'Start new Quiz', quiz_round_new_path(:category => category), class: 'btn btn-default' %>
+            <%= link_to 'Resume Quiz', quiz_round_path(:category => category), class: 'btn btn-default' %>
+            <%= link_to 'Start Quiz (false)', quiz_round_false_round_path(:category => category), class: 'btn btn-default' %>
+        </td>
 
       </tr>
     <% end %>

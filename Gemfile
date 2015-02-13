@@ -5,6 +5,7 @@ source 'https://rubygems.org'
 gem 'rails', '4.1.6'
 
 gem 'sqlite3', :group => [:development, :test]
+
 group :production do
   gem 'thin'
   gem 'pg'
