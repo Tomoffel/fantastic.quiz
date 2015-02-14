@@ -48,11 +48,12 @@
 
         <% if current_user %>
         <div class="col-lg-3">
-          <div class="well sidebar-nav">
-            <h3>Question</h3>
+          <div class="well sidebar-nav navbar-top">
+            <h3>Navigation</h3>
             <ul class="nav nav-list">
-              <li><%= link_to "create", new_question_path  %></li>
-              <li><%= link_to "show all", questions_path  %></li>
+              <li><%= link_to "Create a new question", new_question_path, class: 'btn btn-default'  %></li>
+              <li><%= link_to "Question overview", questions_path, class: 'btn btn-default'  %></li>
+              <li><%= link_to "Start a new quiz", categories_path, class: 'btn btn-default' %></li>
             </ul>
           </div><!--/.well -->
         </div><!--/span-->

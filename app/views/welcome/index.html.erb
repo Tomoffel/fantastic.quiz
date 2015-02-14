@@ -1,1 +1,45 @@
-<h1>Fantastic Quiz</h1>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h1>Fantastic Quiz</h1>
+  </div>
+
+  <div>
+
+    <div class="panel-body">
+      <% if current_user %>
+          <h3>Welcome!</h3>
+          <div>
+            <table>
+          <tr><td><p>You now have the ability to create your own questionnaire and start your own quiz to train yourself.
+          </p>
+          <p>How to start?</p>
+          <ol>
+            <li>Create a question</li>
+            <li>Attach a category or create a new one</li>
+            <li>Start a new quiz</li>
+          </ol>
+          <p>Only you have access to delete and change your categories and their related questions!</p>
+          <p>Sharing your questionnaire with friends enables them to take benefit from your work.</p>
+          <p>And of corse it works the other way round as well.</p></td>
+            <td><img alt="Rails" src="/images/zeiger.png"/></td></tr></table>
+          </div>
+      <% else %>
+          <p>You are searching for an innovative opportunity to test your knowledge?</p>
+          <p>You have to learn for a test but no idea how to start?</p>
+
+          <p>We offer you a study platform that gives you the ability to create your own questionnaire.
+            Start your round of questions and be hero!</p>
+
+          <p>Share your questionnaire with your friends and give them the chance to be as cool as you!</p>
+
+          <img alt="Rails" src="/images/quiz.jpg"/>
+
+          <h3>Get close to the action! Do your registration now! </h3>
+          <br>
+           <div align="center"> <%= link_to 'Sign up', new_user_registration_path, class: 'btn btn-danger' %> </div>
+
+
+      <% end %>
+    </div>
+  </div>
+</div>
