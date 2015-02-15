@@ -16,24 +16,47 @@ class QuestionsController < ApplicationController
   def new
     @question = Question.new
 
-    # add default selected answer
-    @correctValue1 = true
+    if(params[:question_text] != nil)
+      setOldValues
+    else
+      # add default selected answer
+      @correctValue1 = true
+    end
     #respond_with(@question)
   end
 
   def edit
-    @answerValue1 = @question.answers[0].answer
-    @correctValue1 = @question.answers[0].correctAnswer
-    @answerValue2 = @question.answers[1].answer
-    @correctValue2 = @question.answers[1].correctAnswer
-    @answerValue3 = @question.answers[2] == nil ? nil : @question.answers[2].answer
-    @correctValue3 = @question.answers[2] == nil ? false : @question.answers[2].correctAnswer
-    @answerValue4 = @question.answers[3] == nil ? nil : @question.answers[3].answer
-    @correctValue4 = @question.answers[3] == nil ? false : @question.answers[3].correctAnswer
+    if(params[:question_text] != nil)
+      setOldValues
+    else
+      @answerValue1 = @question.answers[0].answer
+      @correctValue1 = @question.answers[0].correctAnswer
+      @answerValue2 = @question.answers[1].answer
+      @correctValue2 = @question.answers[1].correctAnswer
+      @answerValue3 = @question.answers[2] == nil ? nil : @question.answers[2].answer
+      @correctValue3 = @question.answers[2] == nil ? false : @question.answers[2].correctAnswer
+      @answerValue4 = @question.answers[3] == nil ? nil : @question.answers[3].answer
+      @correctValue4 = @question.answers[3] == nil ? false : @question.answers[3].correctAnswer
+
+      @question_text = @question.question
+    end
   end
 
+  def setOldValues
+    @question_text = params[:question_text]
+    @answerValue1 = params[:answer1]
+    @answerValue2 = params[:answer2]
+    @answerValue3 = params[:answer3]
+    @answerValue4 = params[:answer4]
+
+    @correctValue1 = params[:selected] == "correct1"
+    @correctValue2 = params[:selected] == "correct2"
+    @correctValue3 = params[:selected] == "correct3"
+    @correctValue4 = params[:selected] == "correct4"
+  end
+
+
   def create
-    #TODO new values by error
     setVariables
 
     if check_guilty_answers
@@ -56,7 +79,7 @@ class QuestionsController < ApplicationController
         else
           @question.destroy
           flash[:warning] = 'Not enough answers.'
-          redirect_to new_question_url
+          redirect_to new_question_url(:question_text=>question_params[:question], :answer1=>@answerValue1, :answer2=>@answerValue2, :answer3=>@answerValue3, :answer4=>@answerValue4, :selected=>params[:question][:correctMethod])
         end
       else
         respond_to do |format|
@@ -66,7 +89,7 @@ class QuestionsController < ApplicationController
       end
     else
       flash[:warning] = 'Not enough or no correct answer.'
-      redirect_to new_question_url
+      redirect_to new_question_url(:question_text=>question_params[:question], :answer1=>@answerValue1, :answer2=>@answerValue2, :answer3=>@answerValue3, :answer4=>@answerValue4, :selected=>params[:question][:correctMethod])
     end
 
     # respond_with(@question)
@@ -82,7 +105,6 @@ class QuestionsController < ApplicationController
   end
 
   def update
-    #TODO new values by error
     setVariables
 
     if (check_guilty_answers)
@@ -133,15 +155,15 @@ class QuestionsController < ApplicationController
             end
           else
             flash[:warning] = 'Not enough or no correct answer.'
-            redirect_to edit_question_url
+            redirect_to edit_question_url(:question_text=>question_params[:question], :answer1=>@answerValue1, :answer2=>@answerValue2, :answer3=>@answerValue3, :answer4=>@answerValue4, :selected=>params[:question][:correctMethod])
           end
         else
           flash[:notice] = 'No question text!'
-          redirect_to edit_question_url
+          redirect_to edit_question_url(:question_text=>question_params[:question], :answer1=>@answerValue1, :answer2=>@answerValue2, :answer3=>@answerValue3, :answer4=>@answerValue4, :selected=>params[:question][:correctMethod])
         end
     else
       flash[:warning] = 'Not enough or no correct answer.'
-      redirect_to edit_question_url
+      redirect_to edit_question_url(:question_text=>question_params[:question], :answer1=>@answerValue1, :answer2=>@answerValue2, :answer3=>@answerValue3, :answer4=>@answerValue4, :selected=>params[:question][:correctMethod])
     end
 
     #respond_with(@question)

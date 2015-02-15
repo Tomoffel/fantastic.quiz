@@ -1,6 +1,6 @@
 <div class="panel panel-default">
   <div class="panel-heading">
-    <h4>Choose a category and start your quiz!</h4>
+    <h4>Category overview</h4>
   </div>
   <div class="panel-body">
 
@@ -23,7 +23,7 @@
             if category.parent_id != nil && parent != nil
               parent.name
             end %></td>
-        <td><%= link_to 'Show', category, class: 'btn btn-default' %>
+        <td width="250"><%= link_to 'Show', category, class: 'btn btn-default' %>
             <%= link_to 'Edit', edit_category_path(category), class: 'btn btn-default' %>
             <%= link_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-default' %>
         </td>
