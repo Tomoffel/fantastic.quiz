@@ -14,9 +14,9 @@
           </p>
           <p>How to start?</p>
           <ol>
-            <li>Create a question</li>
-            <li>Attach a category or create a new one</li>
-            <li>Start a new quiz</li>
+            <li><%= link_to("Create a question", new_question_path) %></li>
+            <li><%= link_to("Attach a category", questions_path) %> or <%= link_to("create a new one", new_category_path) %></li>
+            <li><%= link_to("Start a quiz", quiz_round_overview_path) %></li>
           </ol>
           <p>Only you have access to delete and change your categories and their related questions!</p>
           <p>Sharing your questionnaire with friends enables them to take benefit from your work.</p>
@@ -34,9 +34,9 @@
 
           <img alt="Rails" src="/images/quiz.jpg"/>
 
-          <h3>Get close to the action! Do your registration now! </h3>
+          <h3>Get close to the action! Do your registration now or sign in! </h3>
           <br>
-           <div align="center"> <%= link_to 'Sign up', new_user_registration_path, class: 'btn btn-danger' %> </div>
+           <div align="center"> <%= link_to 'Sign up', new_user_registration_path, class: 'btn btn-danger' %> <%= link_to 'Sign in', new_user_session_path, class: 'btn btn-success' %> </div>
 
 
       <% end %>

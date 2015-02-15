@@ -84,4 +84,8 @@ class QuizRoundsController < ApplicationController
     redirect_to quiz_round_url(:category=> categoryId)
   end
 
+  def show
+    @categories = Category.all.where(:id => UserToCategory.all.where(:user_id => current_user.id).map(&:category_id))
+  end
+
 end
