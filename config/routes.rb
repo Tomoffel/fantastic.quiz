@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   get '/quiz_round', :to => 'quiz_rounds#index'
   get '/quiz_round/check', :to => 'quiz_rounds#check'
   get '/quiz_round/new', :to => 'quiz_rounds#new'
+  get '/quiz_round/false_round', :to => 'quiz_rounds#falseRound'
 
   # You can have the root of your site routed with "root"
   root 'welcome#index'
