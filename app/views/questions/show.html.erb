@@ -21,8 +21,10 @@
         <%= index %>.  <%= link_to cat.name, cat%> <br>
         <% index = index + 1
        end %>
-
-<%= link_to 'Edit', edit_question_path(@question), class: 'btn btn-primary align-right' %>
+    <div class="align-right">
+        <%= link_to 'Edit', edit_question_path(@question), class: 'btn btn-primary' %>
+        <%= link_to 'Destroy', @question, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
+    </div>
   </div>
 </div>
 <%= link_to 'Back', questions_path %>

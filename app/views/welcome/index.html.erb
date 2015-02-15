@@ -7,13 +7,12 @@
 
     <div class="panel-body">
       <% if current_user %>
-          <h3>Welcome!</h3>
-          <div>
-            <table>
+          <h3 class="main">Welcome!</h3>
+          <div class="main">
           <tr><td><p>You now have the ability to create your own questionnaire and start your own quiz to train yourself.
           </p>
           <p>How to start?</p>
-          <ol>
+          <ol class="main">
             <li><%= link_to("Create a question", new_question_path) %></li>
             <li><%= link_to("Attach a category", questions_path) %> or <%= link_to("create a new one", new_category_path) %></li>
             <li><%= link_to("Start a quiz", quiz_round_overview_path) %></li>
@@ -23,7 +22,7 @@
           <p>And of corse it works the other way round as well.</p></td>
             <td><img alt="Rails" src="/images/zeiger.png"/></td></tr></table>
           </div>
-      <% else %>
+      <% else %><div class="main">
           <p>You are searching for an innovative opportunity to test your knowledge?</p>
           <p>You have to learn for a test but no idea how to start?</p>
 
@@ -37,7 +36,7 @@
           <h3>Get close to the action! Do your registration now or sign in! </h3>
           <br>
            <div align="center"> <%= link_to 'Sign up', new_user_registration_path, class: 'btn btn-danger' %> <%= link_to 'Sign in', new_user_session_path, class: 'btn btn-success' %> </div>
-
+          </div>
 
       <% end %>
     </div>

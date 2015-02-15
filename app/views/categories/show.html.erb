@@ -17,8 +17,11 @@
          <%= index %>.  <%= link_to quest.question, quest%> <br>
          <% index = index + 1
        end %>
-    <%= link_to 'Edit', edit_category_path(@category), class: "btn btn-primary align-right" %>
-  </div>
+        <div class="align-right">
+           <%= link_to 'Edit', edit_category_path(@category), class: "btn btn-primary" %>
+           <%= link_to 'Destroy', @category, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger'  %>
+        </div>
+      </div>
 </div>
 
 
