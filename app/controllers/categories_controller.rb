@@ -1,7 +1,7 @@
 class CategoriesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_category, only: [:show, :edit, :update, :destroy]
-  before_action :set_questions_and_categories, only: [:edit, :index, :new, :show]
+  before_action :set_questions_and_categories, only: [:edit, :index, :new, :show, :create, :update]
 
   def index
     #respond_with(@categories)
@@ -57,8 +57,6 @@ class CategoriesController < ApplicationController
   def destroy
     flag = false
 
-    removeQuestions
-    removeUsers
 
     Category.all.each do |category|
       if category.parent_id == @category.id
@@ -67,6 +65,9 @@ class CategoriesController < ApplicationController
     end
 
     if !flag
+
+      removeQuestions
+      removeUsers
       @category.destroy
       respond_to do |format|
         format.html { redirect_to categories_url, notice: 'Category was successfully destroyed.' }
