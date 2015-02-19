@@ -68,7 +68,8 @@ class QuestionsController < ApplicationController
         if create_new_answer(@answerValue1, @question.id, @correctValue1) and create_new_answer(@answerValue2, @question.id, @correctValue2) and (create_new_answer(@answerValue3, @question.id, @correctValue3) or @answerValue3 == "") and (create_new_answer(@answerValue4, @question.id, @correctValue4) or @answerValue4 == "")
           respond_to do |format|
             if params[:commit] == "Save"
-              format.html { redirect_to questions_url, notice: 'Question successfully created!'}
+              @quest = Question.find(@question.id)
+              format.html { redirect_to question_path(@quest), notice: 'Question successfully created!'}
               format.json { render :show, status: :created, location: @question }
             else
               format.html { redirect_to new_question_path(:cats=>params[:question][:id]), notice: 'Question successfully created!' }
