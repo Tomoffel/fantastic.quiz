@@ -44,6 +44,9 @@ gem 'less-rails'
 gem 'rolify'
 gem 'cancan'
 
+gem "font-awesome-rails"
+
+
 group :development, :test do
     gem 'rspec-rails'
     gem 'factory_girl_rails'
