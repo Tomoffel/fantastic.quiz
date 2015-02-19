@@ -5,8 +5,6 @@ class CategoriesController < ApplicationController
   before_action :set_questions_and_categories_only_full_access, only: [:new, :edit]
   before_action :set_role_user, only: [:edit, :show, :new, :update]
 
-  helper ApplicationHelper
-
   def index
     #respond_with(@categories)
   end
