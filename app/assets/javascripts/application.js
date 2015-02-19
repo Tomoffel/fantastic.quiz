@@ -55,11 +55,15 @@ var ready = function() {
     });
 
     $( "#category_questions" ).dblclick(function() {
-        openWindow("/questions/" + $('#category_questions option:selected').val());
+        if ($('#category_questions option:selected').val() != null) {
+            openWindow("/questions/" + $('#category_questions option:selected').val());
+        }
     });
 
     $( "#unused_questions" ).dblclick(function() {
-        openWindow("/questions/" + $('#unused_questions option:selected').val());
+        if ($('#unused_questions option:selected').val() != null) {
+            openWindow("/questions/" + $('#unused_questions option:selected').val());
+        }
     });
 
     $( ".checked_radio").each(function() {
