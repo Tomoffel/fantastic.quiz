@@ -5,21 +5,42 @@
     <h4 style="display: inline;">Category: <%= @category.name %></h4>
   </div>
   <div class="panel-body"><strong>Parent:</strong>
-    <% parent = @categories.where(:id => @category.parent_id).first
+    <% parent = @categories.detect{|c| c.id == @category.parent_id}
         if @category.parent_id != nil && parent != nil %>
         [<%= @category.parent_id %>]
         <%= link_to parent.name, parent %>
         <% end %>
     <p><br>
+      <strong>Owner: </strong> <%= @owner.email %>
+      <br><br>
     <strong>Questions of Category:</strong> <br>
     <% index = 1
        @category.questions.all.each do |quest| %>
          <%= index %>.  <%= link_to quest.question, quest%> <br>
          <% index = index + 1
        end %>
+      <div>
+        <div class="selectbox">
+          <label>User with full access</label>
+          <%= collection_select :id, :id, @usersWithFullAccess, :id, :email, {}, { id: "list_with_full_access", multiple: true, name: "list_with_full_access[id][]"} %>
+        </div>
+        <div class="selectbox">
+          <label>Users with access to see </label>
+          <%= collection_select :id, :id, @usersWithSeeAccess, :id, :email, {}, { id: "list_with_access_to_show", multiple: true, name: "list_with_access_to_show[id][]"} %>
+        </div>
+        <div class="selectbox">
+          <label>Users without roles</label>
+          <%= collection_select :id, :id, @usersWithoutRole, :id, :email, {}, { id: "list_without_access", multiple: true, name: "list_without_access"} %>
+        </div>
+      </div>
+
         <div class="align-right">
+          <% if current_user.has_role?(@category.name + "_full") || current_user.has_role?(:admin) %>
            <%= link_to 'Edit', edit_category_path(@category), class: "btn btn-primary" %>
+          <% end %>
+          <% if current_user.has_role?(@category.name) || current_user.has_role?(:admin) %>
            <%= link_to 'Destroy', @category, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger'  %>
+          <% end %>
         </div>
       </div>
 </div>

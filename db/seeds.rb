@@ -57,19 +57,20 @@ CategoryToQuestion.create(question_id: question4.id, category_id: it.id)
 CategoryToQuestion.create(question_id: question5.id, category_id: it.id)
 
 adminUser = User.create(email: "admin@admin.de", password: 'adminadmin', password_confirmation: 'adminadmin')
+adminUser.add_role :admin
 
+adminUser.add_role vwl.name
+adminUser.add_role bwl.name
+adminUser.add_role it.name
+adminUser.add_role rw.name
+adminUser.add_role se.name
 
-UserToCategory.create(user_id: adminUser.id, category_id: vwl.id)
-UserToCategory.create(user_id: adminUser.id, category_id: bwl.id)
-UserToCategory.create(user_id: adminUser.id, category_id: it.id)
-UserToCategory.create(user_id: adminUser.id, category_id: rw.id)
-UserToCategory.create(user_id: adminUser.id, category_id: se.id)
+adminUser.add_role question1.id
+adminUser.add_role question2.id
+adminUser.add_role question3.id
+adminUser.add_role question4.id
+adminUser.add_role question5.id
+adminUser.add_role question6.id
+adminUser.add_role question7.id
 
-UserToQuestion.create(question_id: question1.id, user_id: adminUser.id)
-UserToQuestion.create(question_id: question2.id, user_id: adminUser.id)
-UserToQuestion.create(question_id: question3.id, user_id: adminUser.id)
-UserToQuestion.create(question_id: question4.id, user_id: adminUser.id)
-UserToQuestion.create(question_id: question5.id, user_id: adminUser.id)
-UserToQuestion.create(question_id: question6.id, user_id: adminUser.id)
-UserToQuestion.create(question_id: question7.id, user_id: adminUser.id)
-
+normalUser = User.create(email: "normal@normal.de", password: 'normalnormal', password_confirmation: 'normalnormal')

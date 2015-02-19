@@ -1,14 +1,20 @@
 class CategoriesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_category, only: [:show, :edit, :update, :destroy]
-  before_action :set_questions_and_categories, only: [:edit, :index, :new, :show]
+  before_action :set_questions_and_categories, only: [:edit, :index, :new, :show, :create]
+  before_action :set_role_user, only: [:edit, :show, :new, :update]
+
+  helper ApplicationHelper
 
   def index
     #respond_with(@categories)
   end
 
   def show
-    #respond_with(@category)
+    if !(current_user.has_role?(@category.name + "_see") ||current_user.has_role?(@category.name + "_full") || current_user.has_role?(@category.name) || current_user.has_role?(:admin))
+      flash[:warning] = 'Permission denied'
+      redirect_to categories_url
+    end
   end
 
   def new
@@ -17,6 +23,10 @@ class CategoriesController < ApplicationController
   end
 
   def edit
+    if !(current_user.has_role?(@category.name + "_full") || current_user.has_role?(@category.name) || current_user.has_role?(:admin))
+      flash[:warning] = 'Permission denied'
+      redirect_to categories_url
+    end
   end
 
   def create
@@ -25,7 +35,10 @@ class CategoriesController < ApplicationController
     respond_to do |format|
       if @category.save
         addQuestions
-        addUser
+        create_roles
+
+        current_user.add_role(@category.name)
+
         format.html { redirect_to categories_url, notice: 'Category was successfully created.' }
         format.json { render :show, status: :created, location: @category }
       else
@@ -37,6 +50,11 @@ class CategoriesController < ApplicationController
   end
 
   def update
+    if !(current_user.has_role?(@category.name + "_full") || current_user.has_role?(@category.name) || current_user.has_role?(:admin))
+      flash[:warning] = 'Permission denied'
+      redirect_to categories_url
+    end
+
     respond_to do |format|
 
       # do it simple remove first all relations between this category and the questions
@@ -44,7 +62,9 @@ class CategoriesController < ApplicationController
       addQuestions
 
       if @category.update(category_params)
-        format.html { redirect_to categories_url, notice: 'Category was successfully updated.' }
+        create_roles
+
+        format.html { redirect_to categories_url, notice: 'Category was successfully updated.'}
         format.json { render :show, status: :ok, location: @category }
       else
         format.html { render :edit }
@@ -54,11 +74,51 @@ class CategoriesController < ApplicationController
     #respond_with(@category)
   end
 
-  def destroy
-    flag = false
+  def destroy_questions_roles
+    @category.questions.each do |quest|
+      Role.destroy_all(:name => quest.id.to_s + "_see")
+      Role.destroy_all(:name => quest.id.to_s + "_full")
+    end
+  end
 
-    removeQuestions
-    removeUsers
+  def create_roles()
+    Role.destroy_all(:name => @category.name + "_see")
+    Role.destroy_all(:name => @category.name + "_full")
+
+    destroy_questions_roles
+
+    usersWithFullAccess = params[:list_with_full_access][:id]
+    usersWithAccessToShow = params[:list_with_access_to_show][:id]
+
+    @category.questions.each do |quest|
+      set_roles(usersWithFullAccess, quest.id.to_s + "_full")
+      set_roles(usersWithAccessToShow, quest.id.to_s + "_see")
+      if !@owner.has_role?(quest.id)
+        @owner.add_role(quest.id)
+      end
+    end
+
+    set_roles( usersWithFullAccess, @category.name + "_full" )
+    set_roles( usersWithAccessToShow, @category.name + "_see" )
+  end
+
+  def set_roles(list, typ)
+    if list != nil
+      list.each do |id|
+        if id != ""
+          User.find(id.to_i).add_role(typ)
+        end
+      end
+    end
+  end
+
+  def destroy
+    if !(current_user.has_role?(@category.name) || current_user.has_role?(:admin))
+      flash[:warning] = 'Permission denied'
+      redirect_to categories_url
+    end
+
+    flag = false
 
     Category.all.each do |category|
       if category.parent_id == @category.id
@@ -67,6 +127,14 @@ class CategoriesController < ApplicationController
     end
 
     if !flag
+      removeQuestions
+
+      Role.destroy_all(:name => @category.name)
+      Role.destroy_all(:name => @category.name + "_see")
+      Role.destroy_all(:name => @category.name + "_full")
+
+      destroy_questions_roles
+
       @category.destroy
       respond_to do |format|
         format.html { redirect_to categories_url, notice: 'Category was successfully destroyed.' }
@@ -96,26 +164,49 @@ class CategoriesController < ApplicationController
     end
   end
 
-  def addUser
-    UserToCategory.new({'category_id' => @category.id, 'user_id' => current_user.id}).save
-  end
-
-  def removeUsers
-    @category.user_to_categories.destroy_all
-  end
-
   private
   def set_category
     @category = Category.find(params[:id])
   end
 
-  #TODO Dry between this and questions_controller
   def set_questions_and_categories
-    @questions = Question.all.where(:id => UserToQuestion.all.where(:user_id => current_user.id).map(&:question_id))
-    @categories = Category.all.where(:id => UserToCategory.all.where(:user_id => current_user.id).map(&:category_id))
+    @questions = check_question_role(Question)
+    @categories = check_category_role(Category)
   end
 
   def category_params
     params.require(:category).permit(:name, :parent_id)
   end
+
+  def set_role_user
+    @usersWithoutRole = Array.new
+
+    User.all.each do |user|
+      @usersWithoutRole.push( user )
+    end
+
+
+    if(@category != nil)
+      @usersWithFullAccess = User.with_role (@category.name + "_full")
+      @usersWithSeeAccess = User.with_role (@category.name + "_see")
+
+      @usersWithFullAccess.each do |rem|
+        @usersWithoutRole.delete(rem)
+      end
+
+      @usersWithSeeAccess.each do |rem|
+        @usersWithoutRole.delete(rem)
+      end
+
+      @owner = User.with_role(@category.name).first
+    else
+      @usersWithFullAccess = Array.new
+      @usersWithSeeAccess = Array.new
+      @owner = current_user
+    end
+
+    @usersWithoutRole.delete(@owner)
+
+  end
+
 end

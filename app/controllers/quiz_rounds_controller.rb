@@ -12,7 +12,6 @@ class QuizRoundsController < ApplicationController
       @answerChoose = 0
       @selectedAnswer = 1
 
-      #todo do it dry (questions/categories)
       questions = getQuestions(@category)
 
       length = questions.count
@@ -26,8 +25,7 @@ class QuizRoundsController < ApplicationController
   end
 
   def getQuestions(category)
-    #todo do it dry (questions/categories)
-    children = Category.where(:id => UserToCategory.where(:user_id => current_user.id)).where(:parent_id => category.id)
+    children = check_category_role(Category).where(:parent_id => category.id)
     questions = category.questions
 
     #get questions from children
@@ -85,7 +83,7 @@ class QuizRoundsController < ApplicationController
   end
 
   def show
-    @categories = Category.all.where(:id => UserToCategory.all.where(:user_id => current_user.id).map(&:category_id))
+    @categories = check_category_role(Category)
   end
 
 end

@@ -46,6 +46,12 @@ var ready = function() {
         $('#category_questions option').each(function(index) {
             $(this).attr("selected", "selected")
         });
+        $('#list_with_full_access option').each(function(index) {
+            $(this).attr("selected", "selected")
+        });
+        $('#list_with_access_to_show option').each(function(index) {
+            $(this).attr("selected", "selected")
+        });
     });
 
     $( "#category_questions" ).dblclick(function() {
@@ -62,6 +68,58 @@ var ready = function() {
             $("#btn_check").attr("href",  link.substr(0, link.length-1) + $(this).attr("value"))
         })
     })
+
+
+    $('#from_list_with_full_access').click(function(e) {
+        var selectedOpts = $('#list_with_full_access option:selected');
+
+        selectedOpts.each(function(index) {
+                $('#list_with_access_to_show').append($(this).clone());
+        });
+
+        $(selectedOpts).remove();
+        e.preventDefault();
+    });
+
+
+    $('#to_list_with_full_access').click(function(e) {
+        var selectedOpts = $('#list_with_access_to_show option:selected');
+
+        selectedOpts.each(function(index) {
+            $('#list_with_full_access').append($(this).clone());
+        });
+
+        $(selectedOpts).remove();
+        e.preventDefault();
+    });
+
+
+    $('#from_list_without_access').click(function(e) {
+        var selectedOpts = $('#list_without_access option:selected');
+
+        selectedOpts.each(function(index) {
+            $('#list_with_access_to_show').append($(this).clone());
+        });
+
+        $(selectedOpts).remove();
+        e.preventDefault();
+    });
+
+
+    $('#to_list_without_access').click(function(e) {
+        var selectedOpts = $('#list_with_access_to_show option:selected');
+
+        selectedOpts.each(function(index) {
+            $('#list_without_access').append($(this).clone());
+        });
+
+        $(selectedOpts).remove();
+        e.preventDefault();
+    });
+
+
+
+
 };
 
 function openWindow(address) {

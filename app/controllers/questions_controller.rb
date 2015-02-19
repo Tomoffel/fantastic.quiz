@@ -2,15 +2,17 @@ class QuestionsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_question, only: [:show, :edit, :update, :destroy]
   before_action :set_category_ids, only: [:new, :show]
-  before_action :set_questions_and_categories, only: [:edit, :index, :new, :show]
+  before_action :set_questions_and_categories, only: [:edit, :index, :new, :show, :create]
 
   def index
-    @questions = Question.all
     #respond_with(@questions)
   end
 
   def show
-    #respond_with(@question)
+    if !(current_user.has_role?(@question.id.to_s + "_see") || current_user.has_role?(@question.id.to_s + "_full") || current_user.has_role?(@question.id.to_s) || current_user.has_role?(:admin))
+      flash[:warning] = 'Permission denied'
+      redirect_to questions_url
+    end
   end
 
   def new
@@ -26,6 +28,11 @@ class QuestionsController < ApplicationController
   end
 
   def edit
+    if !(current_user.has_role?(@question.id.to_s + "_full") || current_user.has_role?(@question.id.to_s) || current_user.has_role?(:admin))
+      flash[:warning] = 'Permission denied'
+      redirect_to questions_url
+    end
+
     if(params[:question_text] != nil)
       setOldValues
     else
@@ -65,6 +72,9 @@ class QuestionsController < ApplicationController
 
       if @question.save
         addCategories
+
+        current_user.add_role(@question.id)
+
         if create_new_answer(@answerValue1, @question.id, @correctValue1) and create_new_answer(@answerValue2, @question.id, @correctValue2) and (create_new_answer(@answerValue3, @question.id, @correctValue3) or @answerValue3 == "") and (create_new_answer(@answerValue4, @question.id, @correctValue4) or @answerValue4 == "")
           respond_to do |format|
             if params[:commit] == "Save"
@@ -105,6 +115,11 @@ class QuestionsController < ApplicationController
   end
 
   def update
+    if !(current_user.has_role?(@question.id.to_s + "_full") || current_user.has_role?(@question.id.to_s) || current_user.has_role?(:admin))
+      flash[:warning] = 'Permission denied'
+      redirect_to questions_url
+    end
+
     setVariables
 
     if (check_guilty_answers)
@@ -170,12 +185,20 @@ class QuestionsController < ApplicationController
   end
 
   def destroy
+    if !(current_user.has_role?(@question.id.to_s) || current_user.has_role?(:admin))
+      flash[:warning] = 'Permission denied'
+      redirect_to questions_url
+    end
 
     removeCategories
 
     @question.answers.each do |ans|
       ans.destroy
     end
+
+    Role.destroy_all(:name => @question.id)
+    Role.destroy_all(:name => @question.id + "_see")
+    Role.destroy_all(:name => @question.id + "_full")
 
     @question.destroy
 
@@ -238,7 +261,7 @@ class QuestionsController < ApplicationController
   end
 
   def set_questions_and_categories
-    @questions = Question.all.where(:id => UserToQuestion.all.where(:user_id => current_user.id).map(&:question_id))
-    @categories = Category.all.where(:id => UserToCategory.all.where(:user_id => current_user.id).map(&:category_id))
+    @questions = check_question_role(Question)
+    @categories = check_category_role(Category)
   end
 end

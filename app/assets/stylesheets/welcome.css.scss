@@ -8,3 +8,32 @@ h3.main {
 ol.main{
   color: darkred;
 }
+
+.move_button_container {
+  width: 40%;
+  float: right;
+}
+
+.move_button_container_inside {
+  width: 30px;
+ margin: 0 auto;
+}
+
+.move_button_container button{
+
+  width: 30px;
+}
+
+.selectbox {
+  width: 30%;
+  float: left;
+}
+
+select  {
+ width: 60%;
+}
+
+
+#unused_questions {
+  height: 200px;
+}

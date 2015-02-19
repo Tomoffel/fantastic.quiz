@@ -19,9 +19,11 @@
       <br>
       <%= f.label :parent_id %>
       <br>
-      <%=
-          f.collection_select :parent_id, @categories, :id, :name, {selected: @category.parent_id, :include_blank => true}, class: "form-control" %>
-      <br>
+           <%= f.collection_select :parent_id, @categories, :id, :name, {selected: @category.parent_id, :include_blank => true}, class: "form-control" %>
+
+          <br>
+      <strong>Owner: </strong> <%= @owner.email %>
+      <br><br>
       <%= f.label :selected_questions %>
       <%= f.collection_select :questions, @category.questions, :id, :question, {}, { multiple: true, class: "form-control"  }%>
       Doubleclick to show questions
@@ -51,9 +53,36 @@
           end
        %>
        </select>
-      Doubleclick to show questions
-    </div>
 
+      Doubleclick to show questions<br><br>
+    <div>
+        <div class="selectbox">
+            <label>User with full access</label>
+            <%= f.collection_select :id, @usersWithFullAccess, :id, :email, {}, { id: "list_with_full_access", multiple: true, name: "list_with_full_access[id][]"} %>
+            <div class="move_button_container">
+                <div class="move_button_container_inside">
+                  <button id="to_list_with_full_access" class="move_button"><<</button>
+                    <button id="from_list_with_full_access" class="move_button">>></button>
+                  </div>
+            </div>
+
+        </div>
+        <div class="selectbox">
+          <label>Users with access to see </label>
+            <%= f.collection_select :id, @usersWithSeeAccess, :id, :email, {}, { id: "list_with_access_to_show", multiple: true, name: "list_with_access_to_show[id][]"} %>
+          <div class="move_button_container">
+            <div class="move_button_container_inside">
+                <button id="from_list_without_access" class="move_button"><<</button>
+                <button id="to_list_without_access" class="move_button">>></button>
+            </div>
+          </div>
+        </div>
+        <div class="selectbox">
+          <label>Users without roles</label>
+            <%= f.collection_select :id, @usersWithoutRole, :id, :email, {}, { id: "list_without_access", multiple: true, name: "list_without_access"} %>
+        </div>
+    </div>
+    </div>
     <div class="actions">
       <%= f.submit :Save, {class: "btn btn-primary align-right", id: "btn_submit" } %>
     </div>

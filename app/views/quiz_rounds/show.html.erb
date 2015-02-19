@@ -19,7 +19,7 @@
           <tr>
             <td><%= category.id %></td>
             <td><%= category.name %></td>
-            <td><%= parent = @categories.where(:id => category.parent_id).first
+            <td><%= parent = @categories.detect{|c| c.id == category.parent_id}
                     if category.parent_id != nil && parent != nil
                       parent.name
                     end %></td>

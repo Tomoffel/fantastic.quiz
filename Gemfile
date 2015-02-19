@@ -42,6 +42,7 @@ gem 'therubyracer'
 gem 'less-rails'
 
 gem 'rolify'
+gem 'cancan'
 
 group :development, :test do
     gem 'rspec-rails'
