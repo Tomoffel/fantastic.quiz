@@ -39,6 +39,18 @@
   </tbody>
 </table>
 
+    <%= search_form_for @q do |f| %>
+        # Search if the name field contains...
+        <%= f.label :name %>
+        <%= f.search_field :name %>
+
+        # Search if an associated articles.title starts with...
+        <%= f.label :id %>
+        <%= f.search_field :id %>
+
+        <%= f.submit %>
+    <% end %>
+
 <br>
 
 <%= link_to 'New Category', new_category_path, class: 'btn btn-primary align-right' %>

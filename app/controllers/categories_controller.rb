@@ -2,11 +2,13 @@ class CategoriesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_category, only: [:show, :edit, :update, :destroy]
   before_action :set_questions_and_categories, only: [:index, :show, :create]
-  before_action :set_questions_and_categories_only_full_access, only: [:new, :edit]
-  before_action :set_role_user, only: [:edit, :show, :new, :update]
+  before_action :set_questions_and_categories_only_full_access, only: [:new, :edit, :update]
+  before_action :set_role_user, only: [:edit, :show, :new, :update, :create]
 
   def index
-    #respond_with(@categories)
+   @q = Category.ransack(params[:q])
+
+   #respond_with(@categories)
   end
 
   def show
@@ -185,7 +187,7 @@ class CategoriesController < ApplicationController
 
 
     if(@category != nil)
-      @usersWithFullAccess = User.with_role (@category.name + @category.id.to-s + "_full")
+      @usersWithFullAccess = User.with_role (@category.name + @category.id.to_s + "_full")
       @usersWithSeeAccess = User.with_role (@category.name + @category.id.to_s + "_see")
 
       @usersWithFullAccess.each do |rem|

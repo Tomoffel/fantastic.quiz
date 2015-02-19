@@ -44,6 +44,8 @@ gem 'less-rails'
 gem 'rolify'
 gem 'cancan'
 
+gem 'ransack', github: 'activerecord-hackery/ransack'
+
 group :development, :test do
     gem 'rspec-rails'
     gem 'factory_girl_rails'
