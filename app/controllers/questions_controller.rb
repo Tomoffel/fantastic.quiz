@@ -207,11 +207,11 @@ class QuestionsController < ApplicationController
       end
     end
 
-    if ownCategories.length == 0
+    if ownCategories.length == 0 && !@question.categories.empty?
       flash[:warning] = 'Permission denied, you are not the owner of the categories'
       redirect_to questions_url
     else
-      if ownCategories.length == 1
+      if ownCategories.length == 1 || @question.categories.empty?
         removeCategories
 
         @question.answers.each do |ans|

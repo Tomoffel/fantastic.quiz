@@ -2,16 +2,11 @@ require 'rails_helper'
 
 describe 'Test Question' do
 
+  before(:all) do
+    adminUser = User.create(email: "admin@admin.de", password: 'adminadmin', password_confirmation: 'adminadmin')
+    adminUser.add_role :admin
+  end
   it 'should create, edit, show, destroy some questions' do
-    visit '/users/sign_up'
-
-    fill_in 'user_email', with: 'admin@admin.de'
-    fill_in 'user_password', with: 'adminadmin'
-    fill_in 'user_password_confirmation', with: 'adminadmin'
-    click_button 'Sign up'
-    click_link 'Sign out'
-
-
     visit '/users/sign_in'
     fill_in 'user_email', with: 'admin@admin.de'
     fill_in 'user_password', with: 'adminadmin'
@@ -29,10 +24,7 @@ describe 'Test Question' do
     page.should have_content 'Question successfully created!'
     page.should have_content 'Frage'
 
-    click_link('Show', match: :first)
-
-    page.should have_content 'Frage'
-    click_link 'Back'
+    click_link 'Questions overview'
 
     click_link 'Edit'
     fill_in 'question[question]', with: 'Frage1'
@@ -40,7 +32,7 @@ describe 'Test Question' do
     choose('question_correctMethod_correct1')
     click_button 'Save'
     page.should have_content 'Question successfully updated!'
-    click_link 'Back'
+    click_link 'Questions overview'
 
     click_link('Destroy', match: :first)
     page.should have_content 'Question successfully deleted!'
