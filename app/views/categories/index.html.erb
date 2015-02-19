@@ -21,7 +21,7 @@
         <td><%= category.name %></td>
         <td><%= parent = @categories.detect{|c| c.id == category.parent_id}
             if category.parent_id != nil && parent != nil
-              parent.name
+              link_to parent.name, category_path(parent)
             end %></td>
         <td width="250"><%= link_to 'Show', category, class: 'btn btn-default' %>
           <% if current_user.has_role?(category.name + "_full") || current_user.has_role?(:admin) %>

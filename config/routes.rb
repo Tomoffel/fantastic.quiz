@@ -5,6 +5,8 @@ Rails.application.routes.draw do
 
   resources :answers
 
+  get '/questions/delete_connection', :to => 'questions#delete_connection'
+
   resources :questions
 
   devise_for  :users

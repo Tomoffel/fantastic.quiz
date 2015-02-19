@@ -1,7 +1,8 @@
 class CategoriesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_category, only: [:show, :edit, :update, :destroy]
-  before_action :set_questions_and_categories, only: [:edit, :index, :new, :show, :create]
+  before_action :set_questions_and_categories, only: [:index, :show, :create]
+  before_action :set_questions_and_categories_only_full_access, only: [:new, :edit]
   before_action :set_role_user, only: [:edit, :show, :new, :update]
 
   helper ApplicationHelper
@@ -91,11 +92,10 @@ class CategoriesController < ApplicationController
     usersWithAccessToShow = params[:list_with_access_to_show][:id]
 
     @category.questions.each do |quest|
-      set_roles(usersWithFullAccess, quest.id.to_s + "_full")
+      set_roles(usersWithFullAccess, quest.id.to_s)
       set_roles(usersWithAccessToShow, quest.id.to_s + "_see")
-      if !@owner.has_role?(quest.id)
-        @owner.add_role(quest.id)
-      end
+
+      @owner.add_role(quest.id.to_s)
     end
 
     set_roles( usersWithFullAccess, @category.name + "_full" )
@@ -209,4 +209,22 @@ class CategoriesController < ApplicationController
 
   end
 
+  def set_questions_and_categories_only_full_access
+    @questions = check_question_role_only_full_access(Question)
+    @categories = check_category_role_only_full_access(Category)
+
+    if (@category != nil)
+      parent_id = @category.parent_id
+      if parent_id != nil
+        parent = Category.find(parent_id)
+        if !(current_user.has_role?(parent.name) || current_user.has_role?(parent.name + "_full") || current_user.has_role?(parent.name + "_see"))
+          @categories.push(parent)
+        end
+      end
+
+      @categories.delete(@category)
+    end
+
+
+  end
 end

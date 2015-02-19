@@ -117,7 +117,10 @@ var ready = function() {
         e.preventDefault();
     });
 
-
+    if ($('#own_categories_to_delete') != null) {
+        var overlay = $("#own_categories_to_delete")
+        overlay.appendTo(document.body)
+    }
 
 
 };

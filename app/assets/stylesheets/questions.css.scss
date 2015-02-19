@@ -1,3 +1,38 @@
 // Place all the styles related to the Questions controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+#own_categories_to_delete {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  filter:alpha(opacity=50);
+  -moz-opacity:0.5;
+  -khtml-opacity: 0.5;
+  opacity: 0.5;
+  z-index: 10000;
+}
+
+#own_catgories_to_delete_inner {
+  width: 200px;
+  height: 200px;
+  margin: 50px auto;
+  background-color: white;
+}
+
+.one_category {
+  float: left;
+  width: 200px;
+}
+
+.float_left {
+  float: left;
+}
+
+.one_category div{
+  width: 100px;
+}
+

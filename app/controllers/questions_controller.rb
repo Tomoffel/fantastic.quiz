@@ -5,11 +5,19 @@ class QuestionsController < ApplicationController
   before_action :set_questions_and_categories, only: [:edit, :index, :new, :show, :create]
 
   def index
+    if (params[:cats] != nil)
+      @ownCategories = Array.new
+      params[:cats].each do |cat_id|
+        @ownCategories.push(Category.find(cat_id))
+        @question_id = params[:quest]
+      end
+    end
+
     #respond_with(@questions)
   end
 
   def show
-    if !(current_user.has_role?(@question.id.to_s + "_see") || current_user.has_role?(@question.id.to_s + "_full") || current_user.has_role?(@question.id.to_s) || current_user.has_role?(:admin))
+    if !(current_user.has_role?(@question.id.to_s + "_see") || current_user.has_role?(@question.id.to_s) || current_user.has_role?(:admin))
       flash[:warning] = 'Permission denied'
       redirect_to questions_url
     end
@@ -28,7 +36,7 @@ class QuestionsController < ApplicationController
   end
 
   def edit
-    if !(current_user.has_role?(@question.id.to_s + "_full") || current_user.has_role?(@question.id.to_s) || current_user.has_role?(:admin))
+    if !( current_user.has_role?(@question.id.to_s) || current_user.has_role?(:admin))
       flash[:warning] = 'Permission denied'
       redirect_to questions_url
     end
@@ -115,7 +123,7 @@ class QuestionsController < ApplicationController
   end
 
   def update
-    if !(current_user.has_role?(@question.id.to_s + "_full") || current_user.has_role?(@question.id.to_s) || current_user.has_role?(:admin))
+    if !(current_user.has_role?(@question.id.to_s) || current_user.has_role?(:admin))
       flash[:warning] = 'Permission denied'
       redirect_to questions_url
     end
@@ -190,23 +198,38 @@ class QuestionsController < ApplicationController
       redirect_to questions_url
     end
 
-    removeCategories
+    ownCategories = Array.new
 
-    @question.answers.each do |ans|
-      ans.destroy
+    @question.categories.each do |cat|
+      if current_user.has_role?(cat.name) || current_user.has_role?(:admin)
+        ownCategories.push(cat)
+      end
     end
 
-    Role.destroy_all(:name => @question.id)
-    Role.destroy_all(:name => @question.id + "_see")
-    Role.destroy_all(:name => @question.id + "_full")
+    if ownCategories.length == 0
+      flash[:warning] = 'Permission denied, you are not the owner of the categories'
+      redirect_to questions_url
+    else
+      if ownCategories.length == 1
+        removeCategories
 
-    @question.destroy
+        @question.answers.each do |ans|
+          ans.destroy
+        end
 
-    respond_to do |format|
-      format.html { redirect_to questions_url, notice: 'Question successfully deleted!' }
-      format.json { head :no_content }
+        Role.destroy_all(:name => @question.id)
+        Role.destroy_all(:name => @question.id.to_s + "_see")
+
+        @question.destroy
+
+        respond_to do |format|
+          format.html { redirect_to questions_url, notice: 'Question successfully deleted!' }
+          format.json { head :no_content }
+        end
+      else
+        redirect_to questions_url(:cats => ownCategories, :quest => @question.id)
+      end
     end
-    #respond_with(@question)
   end
 
   def setVariables()
@@ -230,6 +253,17 @@ class QuestionsController < ApplicationController
         CategoryToQuestion.new({'category_id' => id, 'question_id' => @question.id}).save
       end
     end
+  end
+
+  def delete_connection
+    if !(current_user.has_role?(params[:quest]) || current_user.has_role?(:admin))
+      flash[:warning] = 'Permission denied'
+      redirect_to questions_url
+    end
+
+    CategoryToQuestion.where( :category_id =>params[:cat].to_i, :question_id => params[:quest].to_i).first.destroy
+
+    redirect_to questions_url, notice: 'Connection between category and question successfully deleted!'
   end
 
   private

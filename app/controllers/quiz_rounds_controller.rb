@@ -25,7 +25,7 @@ class QuizRoundsController < ApplicationController
   end
 
   def getQuestions(category)
-    children = check_category_role(Category).where(:parent_id => category.id)
+    children = check_category_role(Category).select {|parent| parent.parent_id == category.id}
     questions = category.questions
 
     #get questions from children
@@ -33,9 +33,13 @@ class QuizRoundsController < ApplicationController
       questions = questions + child.questions
     end
 
+    answeredQuestion = Array.new
+
     QuizRound.where("category_id" => category.id, "user_id" => current_user.id).map(&:question).each do |rem|
-      questions.delete(rem)
+      answeredQuestion.push(rem)
     end
+
+    questions = questions - answeredQuestion
 
     return questions
   end
