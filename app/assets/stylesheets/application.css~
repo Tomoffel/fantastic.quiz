@@ -16,6 +16,7 @@
  *= require font-awesome
  */
 
+<<<<<<< HEAD
 #email {
     position: relative;
     display: block;
@@ -23,3 +24,6 @@
     padding-top: 15px;
     padding-bottom: 15px;
 }
+=======
+
+>>>>>>> 79f9541c13f58e2135be23409599f893ec0d9ec6

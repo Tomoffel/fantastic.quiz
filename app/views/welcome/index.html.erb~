@@ -3,7 +3,10 @@
     <h1>Fantastic Quiz</h1>
   </div>
   <div>
+<<<<<<< HEAD
+=======
     <i class="fa fa-camera-retro fa-3x"></i>
+>>>>>>> 79f9541c13f58e2135be23409599f893ec0d9ec6
     <div class="panel-body">
       <% if current_user %>
           <h3 class="main">Welcome!</h3>
