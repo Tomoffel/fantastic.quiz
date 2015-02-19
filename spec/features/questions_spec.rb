@@ -23,7 +23,7 @@ describe 'Test Question' do
     fill_in 'question[question]', with: 'Frage'
     fill_in 'question[answers1]', with: 'ans1'
     fill_in 'question[answers2]', with: 'ans2'
-    # TODO click_button 'question_correctMethod_correct1'
+    choose('question_correctMethod_correct1')
     click_button 'Save'
 
     page.should have_content 'Question successfully created!'
@@ -37,7 +37,7 @@ describe 'Test Question' do
     click_link 'Edit'
     fill_in 'question[question]', with: 'Frage1'
     fill_in 'question[answers1]', with: 'ans3'
-    # TODO click_button 'question[correctMethod]', match: :first
+    choose('question_correctMethod_correct1')
     click_button 'Save'
     page.should have_content 'Question successfully updated!'
     click_link 'Back'

@@ -51,6 +51,7 @@ describe 'Test gui components' do
     UserToQuestion.create(question_id: question5.id, user_id: adminUser.id)
     UserToQuestion.create(question_id: question6.id, user_id: adminUser.id)
     UserToQuestion.create(question_id: question7.id, user_id: adminUser.id)
+
   end
 
   after(:all) do
@@ -63,12 +64,10 @@ describe 'Test gui components' do
     CategoryToQuestion.destroy_all
   end
   it 'should create, edit, show, destroy some categories' do
-
-
-      visit '/users/sign_in'
-      fill_in 'user_email', with: 'admin@admin.de'
-      fill_in 'user_password', with: 'adminadmin'
-      click_button 'Sign in'
+    visit '/users/sign_in'
+    fill_in 'user_email', with: 'admin@admin.de'
+    fill_in 'user_password', with: 'adminadmin'
+    click_button 'Sign in'
     page.should have_content 'Signed in successfully.'
 
     click_link 'Create a new category'
@@ -105,10 +104,60 @@ describe 'Test gui components' do
     click_button 'Save'
     page.should have_content "1 error prohibited this category from being saved:"
 
-    fill_in 'category[name]', with: 'IT'
+    fill_in 'category[name]', with: 'VWL'
     click_button 'Save'
 
     page.should have_content "Category was successfully updated."
+  end
+
 
   end
+describe 'Test gui components-Quiz' do
+
+
+
+  before(:all) do
+    it = Category.create(name: 'IT')
+    question5 = Question.create(question: 'Ein eigens für ein Unternehmen oder eine Gruppe aufgestelltes Netzwerk mit Internet-Technologie nennt sich?')
+    Answer.create(answer: 'Telnet', question_id: question5.id)
+    Answer.create(answer: 'WAN', question_id: question5.id)
+    Answer.create(answer: 'Intranet', question_id: question5.id, correctAnswer: 't')
+    Answer.create(answer: 'Chat', question_id: question5.id)
+    CategoryToQuestion.create(question_id: question5.id, category_id: it.id)
+
+    adminUser = User.create(email: "admin@admin.de", password: 'adminadmin', password_confirmation: 'adminadmin')
+    UserToCategory.create(user_id: adminUser.id, category_id: it.id)
+    UserToQuestion.create(question_id: question5.id, user_id: adminUser.id)
+  end
+  after(:all) do
+    Category.destroy_all
+    User.destroy_all
+    Question.destroy_all
+    Answer.destroy_all
+    UserToQuestion.destroy_all
+    UserToCategory.destroy_all
+    CategoryToQuestion.destroy_all
+  end
+
+  it 'starts a new Quiz' do
+    visit '/users/sign_in'
+    fill_in 'user_email', with: 'admin@admin.de'
+    fill_in 'user_password', with: 'adminadmin'
+    click_button 'Sign in'
+    page.should have_content 'Signed in successfully.'
+
+    click_link('Start a quiz', match: :first)
+    page.should have_content "Choose a category and start your quiz!"
+
+
+    click_link 'Start new Quiz'
+    page.should have_content "Quiz-Round IT"
+
+    choose('select_question_3')
+    click_link 'Check Answer'
+    click_link 'Next Questions'
+    page.should have_content "No more questions"
+    click_link 'Back'
+  end
+
 end
