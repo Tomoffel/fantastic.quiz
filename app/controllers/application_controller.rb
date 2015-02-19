@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
     array = Array.new
 
     typ.all.each do |t|
-      if (current_user.has_role?(t.name) || current_user.has_role?(t.name + "_full") || current_user.has_role?(t.name + "_see") || current_user.has_role?(:admin))
+      if (current_user.has_role?(t.name + t.id.to_s) || current_user.has_role?(t.name + t.id.to_s + "_full") || current_user.has_role?(t.name + t.id.to_s + "_see") || current_user.has_role?(:admin))
         array.push(t)
       end
     end
@@ -48,7 +48,7 @@ class ApplicationController < ActionController::Base
     array = Array.new
 
     typ.all.each do |t|
-      if (current_user.has_role?(t.name) || current_user.has_role?(t.name + "_full")  || current_user.has_role?(:admin))
+      if (current_user.has_role?(t.name + t.id.to_s) || current_user.has_role?(t.name + t.id.to_s + "_full")  || current_user.has_role?(:admin))
         array.push(t)
       end
     end

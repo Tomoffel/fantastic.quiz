@@ -7,5 +7,4 @@ class Category < ActiveRecord::Base
   has_many :users, through: :user_to_categories
 
   validates :name, presence: true
-  validates_uniqueness_of :name
 end

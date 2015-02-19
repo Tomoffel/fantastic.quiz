@@ -14,3 +14,11 @@
  *= require_self
  *= require devise_bootstrap_views
  */
+
+#email {
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}

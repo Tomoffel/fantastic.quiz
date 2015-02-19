@@ -36,7 +36,7 @@ class CategoriesController < ApplicationController
         addQuestions
         create_roles
 
-        current_user.add_role(@category.name)
+        current_user.add_role(@category.name + @category.id.to_s)
 
         format.html { redirect_to categories_url, notice: 'Category was successfully created.' }
         format.json { render :show, status: :created, location: @category }
@@ -49,7 +49,7 @@ class CategoriesController < ApplicationController
   end
 
   def update
-    if !(current_user.has_role?(@category.name + "_full") || current_user.has_role?(@category.name) || current_user.has_role?(:admin))
+    if !(current_user.has_role?(@category.name + @category.id.to_s + "_full") || current_user.has_role?(@category.name + @category.id.to_s) || current_user.has_role?(:admin))
       flash[:warning] = 'Permission denied'
       redirect_to categories_url
     end
@@ -81,8 +81,8 @@ class CategoriesController < ApplicationController
   end
 
   def create_roles()
-    Role.destroy_all(:name => @category.name + "_see")
-    Role.destroy_all(:name => @category.name + "_full")
+    Role.destroy_all(:name => @category.name  + @category.id.to_s + "_see")
+    Role.destroy_all(:name => @category.name  + @category.id.to_s + "_full")
 
     destroy_questions_roles
 
@@ -96,8 +96,8 @@ class CategoriesController < ApplicationController
       @owner.add_role(quest.id.to_s)
     end
 
-    set_roles( usersWithFullAccess, @category.name + "_full" )
-    set_roles( usersWithAccessToShow, @category.name + "_see" )
+    set_roles( usersWithFullAccess, @category.name + @category.id.to_s + "_full" )
+    set_roles( usersWithAccessToShow, @category.name + @category.id.to_s + "_see" )
   end
 
   def set_roles(list, typ)
@@ -111,7 +111,7 @@ class CategoriesController < ApplicationController
   end
 
   def destroy
-    if !(current_user.has_role?(@category.name) || current_user.has_role?(:admin))
+    if !(current_user.has_role?(@category.name + @category.id.to_s) || current_user.has_role?(:admin))
       flash[:warning] = 'Permission denied'
       redirect_to categories_url
     end
@@ -127,9 +127,9 @@ class CategoriesController < ApplicationController
     if !flag
       removeQuestions
 
-      Role.destroy_all(:name => @category.name)
-      Role.destroy_all(:name => @category.name + "_see")
-      Role.destroy_all(:name => @category.name + "_full")
+      Role.destroy_all(:name => @category.name + @category.id.to_s)
+      Role.destroy_all(:name => @category.name + @category.id.to_s + "_see")
+      Role.destroy_all(:name => @category.name + @category.id.to_s + "_full")
 
       destroy_questions_roles
 
@@ -185,8 +185,8 @@ class CategoriesController < ApplicationController
 
 
     if(@category != nil)
-      @usersWithFullAccess = User.with_role (@category.name + "_full")
-      @usersWithSeeAccess = User.with_role (@category.name + "_see")
+      @usersWithFullAccess = User.with_role (@category.name + @category.id.to-s + "_full")
+      @usersWithSeeAccess = User.with_role (@category.name + @category.id.to_s + "_see")
 
       @usersWithFullAccess.each do |rem|
         @usersWithoutRole.delete(rem)
@@ -196,7 +196,7 @@ class CategoriesController < ApplicationController
         @usersWithoutRole.delete(rem)
       end
 
-      @owner = User.with_role(@category.name).first
+      @owner = User.with_role(@category.name + @category.id.to_s).first
     else
       @usersWithFullAccess = Array.new
       @usersWithSeeAccess = Array.new
@@ -215,7 +215,7 @@ class CategoriesController < ApplicationController
       parent_id = @category.parent_id
       if parent_id != nil
         parent = Category.find(parent_id)
-        if !(current_user.has_role?(parent.name) || current_user.has_role?(parent.name + "_full") || current_user.has_role?(parent.name + "_see"))
+        if !(current_user.has_role?(parent.name + parent.id.to_s) || current_user.has_role?(parent.name + parent.id.to_s + "_full") || current_user.has_role?(parent.name + parent.id.to_s + "_see"))
           @categories.push(parent)
         end
       end
