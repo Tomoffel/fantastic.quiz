@@ -10,10 +10,10 @@
       <ul class="nav navbar-nav pull-right">
 
         <% if current_user %>
-            <li><%= link_to 'Sign out', destroy_user_session_path, method: :delete %></li>
+            <li><%= link_to 'Sign out', destroy_user_session_path, :class => "fa fa-sign-out", method: :delete %></li>
         <% else %>
-            <li><%= link_to 'Sign in', new_user_session_path %></li>
-            <li><%= link_to 'Sign up', new_user_registration_path %></li>
+            <li><%= link_to 'Sign in', new_user_session_path, :class => "fa fa-sign-in" %></li>
+            <li><%= link_to 'Sign up', new_user_registration_path, :class => "fa fa-user-plus" %></li>
         <% end %>
 
       </ul>
