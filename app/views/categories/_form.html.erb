@@ -17,16 +17,17 @@
       <br>
       <%= f.text_field :name, class: "form-control" %>
       <br>
-      <%= f.label :parent_id %>
+      <%= f.label :subject %>
       <br>
            <%= f.collection_select :parent_id, @categories, :id, :name, {selected: @category.parent_id, :include_blank => true}, class: "form-control" %>
 
           <br>
       <strong>Owner: </strong> <%= @owner.email %>
       <br><br>
-      <%= f.label :selected_questions %>
+      <%= f.label :selected_questions %><br>
+      Double-click to show question in detail
       <%= f.collection_select :questions, @category.questions, :id, :question, {}, { multiple: true, class: "form-control"  }%>
-      Doubleclick to show questions
+
       <br>
       <div align="center">
          <button id="btn_select" class="btn btn-success">Select</button>
@@ -34,7 +35,8 @@
          <%= link_to 'New Question', new_question_path(:category_id=>@category.id), class: 'btn btn-primary' %>
       </div>
       <br>
-      <%= f.label :other_questions %>
+      <%= f.label :other_questions %><br>
+      Double-click to show question in detail
       <select class="form-control" id="unused_questions" multiple="multiple">
       <optgroup value="category" label="Questions without Category"/>
       <% @questions.each do |quest|
@@ -53,11 +55,12 @@
           end
        %>
        </select>
-
-      Doubleclick to show questions<br><br>
+<br><br>
+      <div><h4>Determine access rights</h4></div>
     <div>
         <div class="selectbox">
-            <label>User with full access</label>
+            <label>Full access User</label><br>
+          Create, Read, Update, Delete<br>
             <%= f.collection_select :id, @usersWithFullAccess, :id, :email, {}, { id: "list_with_full_access", multiple: true, name: "list_with_full_access[id][]"} %>
             <div class="move_button_container">
                 <div class="move_button_container_inside">
@@ -68,7 +71,8 @@
 
         </div>
         <div class="selectbox">
-          <label>Users with access to see </label>
+          <label>Limited access User</label><br>
+          Read<br>
             <%= f.collection_select :id, @usersWithSeeAccess, :id, :email, {}, { id: "list_with_access_to_show", multiple: true, name: "list_with_access_to_show[id][]"} %>
           <div class="move_button_container">
             <div class="move_button_container_inside">
@@ -77,8 +81,11 @@
             </div>
           </div>
         </div>
+
+
         <div class="selectbox">
-          <label>Users without roles</label>
+          <label>List of all members<br></label>
+          <br><br>
             <%= f.collection_select :id, @usersWithoutRole, :id, :email, {}, { id: "list_without_access", multiple: true, name: "list_without_access"} %>
         </div>
     </div>

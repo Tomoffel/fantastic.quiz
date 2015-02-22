@@ -9,7 +9,7 @@
       <tr>
         <th>ID</th>
         <th>Name</th>
-        <th>Parent</th>
+        <th>Subject</th>
         <th colspan="4"></th>
       </tr>
       </thead>
@@ -25,7 +25,7 @@
                     end %></td>
             <td width="400"><%= link_to 'Start new Quiz', quiz_round_new_path(:category => category), class: 'btn btn-default' %>
               <%= link_to 'Continue Quiz', quiz_round_path(:category => category), class: 'btn btn-default' %>
-              <%= link_to 'Start Quiz (false)', quiz_round_false_round_path(:category => category), class: 'btn btn-default' %>
+              <%= link_to 'Checking', quiz_round_false_round_path(:category => category), class: 'btn btn-default' %>
             </td>
 
           </tr>

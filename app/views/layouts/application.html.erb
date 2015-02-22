@@ -63,11 +63,11 @@
             <% if current_user.has_role?(:admin) %>
             <div class="col-lg-3">
               <div class="well sidebar-nav navbar-top">
-                <h3>Statistics</h3>
+                <h4>Counter</h4>
                 <ul class="nav nav-list">
-                  <li>Usercount: <%= User.all.count %></li>
-                  <li>Categoriescount: <%= Category.all.count %></li>
-                  <li>Questionscount: <%= Question.all.count %></li>
+                  <li>User: <%= User.all.count %></li>
+                  <li>Categories: <%= Category.all.count %></li>
+                  <li>Questions: <%= Question.all.count %></li>
                 </ul>
               </div><!--/.well -->
             </div><!--/span-->
