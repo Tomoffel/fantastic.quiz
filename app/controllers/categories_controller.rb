@@ -16,6 +16,8 @@ class CategoriesController < ApplicationController
       flash[:warning] = 'Permission denied'
       redirect_to categories_url
     end
+
+    @children = check_category_role(Category).select {|parent| parent.parent_id == @category.id}
   end
 
   def new
@@ -153,7 +155,6 @@ class CategoriesController < ApplicationController
     @category.category_to_questions.destroy_all
   end
 
-  #todo what happen if save not possible?
   def addQuestions
     questions = params[:category][:questions]
 

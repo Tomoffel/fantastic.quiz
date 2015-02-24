@@ -42,15 +42,7 @@ describe 'Test gui components' do
 
 
     adminUser = User.create(email: "admin@admin.de", password: 'adminadmin', password_confirmation: 'adminadmin')
-
-
-    UserToQuestion.create(question_id: question1.id, user_id: adminUser.id)
-    UserToQuestion.create(question_id: question2.id, user_id: adminUser.id)
-    UserToQuestion.create(question_id: question3.id, user_id: adminUser.id)
-    UserToQuestion.create(question_id: question4.id, user_id: adminUser.id)
-    UserToQuestion.create(question_id: question5.id, user_id: adminUser.id)
-    UserToQuestion.create(question_id: question6.id, user_id: adminUser.id)
-    UserToQuestion.create(question_id: question7.id, user_id: adminUser.id)
+    adminUser.add_role :admin
 
   end
 
@@ -59,8 +51,6 @@ describe 'Test gui components' do
     User.destroy_all
     Question.destroy_all
     Answer.destroy_all
-    UserToQuestion.destroy_all
-    UserToCategory.destroy_all
     CategoryToQuestion.destroy_all
   end
   it 'should create, edit, show, destroy some categories' do
@@ -126,16 +116,13 @@ describe 'Test gui components-Quiz' do
     CategoryToQuestion.create(question_id: question5.id, category_id: it.id)
 
     adminUser = User.create(email: "admin@admin.de", password: 'adminadmin', password_confirmation: 'adminadmin')
-    UserToCategory.create(user_id: adminUser.id, category_id: it.id)
-    UserToQuestion.create(question_id: question5.id, user_id: adminUser.id)
+    adminUser.add_role :admin
   end
   after(:all) do
     Category.destroy_all
     User.destroy_all
     Question.destroy_all
     Answer.destroy_all
-    UserToQuestion.destroy_all
-    UserToCategory.destroy_all
     CategoryToQuestion.destroy_all
   end
 

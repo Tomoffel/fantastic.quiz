@@ -16,8 +16,8 @@
 //= require turbolinks
 //= require_tree .
 
-//todo in correct file
 var ready = function() {
+    // create function of select button in categories view. Add all selected options of unused question to used questions
     $('#btn_select').click(function(e) {
         var selectedOpts = $('#unused_questions option:selected');
 
@@ -30,6 +30,7 @@ var ready = function() {
         e.preventDefault();
     });
 
+    // create function of deselect button in categories view. remove all selected options of select.
     $('#btn_deselect').click(function(e) {
         var selectedOpts = $('#category_questions option:selected');
 
@@ -42,6 +43,7 @@ var ready = function() {
         e.preventDefault();
     });
 
+    // if user click submit on categories view all used questions, user with full access and user with access to show are selected
     $('#btn_submit').click(function(e) {
         $('#category_questions option').each(function(index) {
             $(this).attr("selected", "selected")
@@ -54,18 +56,28 @@ var ready = function() {
         });
     });
 
+    // show question at double click
     $( "#category_questions" ).dblclick(function() {
         if ($('#category_questions option:selected').val() != null) {
             openWindow("/questions/" + $('#category_questions option:selected').val());
         }
     });
 
+    // show question at double click
     $( "#unused_questions" ).dblclick(function() {
         if ($('#unused_questions option:selected').val() != null) {
             openWindow("/questions/" + $('#unused_questions option:selected').val());
         }
     });
 
+    // show category t double click
+    $( "#question_id" ).dblclick(function() {
+        if ($('#question_id option:selected').val() != null) {
+            openWindow("/categories/" + $('#question_id option:selected').val());
+        }
+    });
+
+    // change check button of quiz round if user change answer
     $( ".checked_radio").each(function() {
         $(this).click(function() {
             var link = $("#btn_check").attr("href")
@@ -73,7 +85,7 @@ var ready = function() {
         })
     })
 
-
+    // create function of move to access to show button in categories view. Add all selected options of full access to access to show
     $('#from_list_with_full_access').click(function(e) {
         var selectedOpts = $('#list_with_full_access option:selected');
 
@@ -86,6 +98,7 @@ var ready = function() {
     });
 
 
+    // create function of move to full access button in categories view. Add all selected options of access to show to full access
     $('#to_list_with_full_access').click(function(e) {
         var selectedOpts = $('#list_with_access_to_show option:selected');
 
@@ -97,7 +110,7 @@ var ready = function() {
         e.preventDefault();
     });
 
-
+    // create function of move to access to show button in categories view. Add all selected options of without access to access to show
     $('#from_list_without_access').click(function(e) {
         var selectedOpts = $('#list_without_access option:selected');
 
@@ -109,7 +122,7 @@ var ready = function() {
         e.preventDefault();
     });
 
-
+    // create function of move to without access button in categories view. Add all selected options of access to show to without access
     $('#to_list_without_access').click(function(e) {
         var selectedOpts = $('#list_with_access_to_show option:selected');
 
@@ -121,6 +134,7 @@ var ready = function() {
         e.preventDefault();
     });
 
+    // create an overlay to delete a question
     if ($('#own_categories_to_delete') != null) {
         var overlay = $("#own_categories_to_delete")
         overlay.appendTo(document.body)
@@ -130,8 +144,7 @@ var ready = function() {
 };
 
 function openWindow(address) {
-    questionWindow = window.open(address, "_blank");
-    questionWindow.focus();
+    window.location.href = address
 }
 
 function containsId(id, listbox) {

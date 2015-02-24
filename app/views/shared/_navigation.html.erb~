@@ -10,8 +10,12 @@
       <ul class="nav navbar-nav pull-right">
 
         <% if current_user %>
+<<<<<<< HEAD
             <li id="email"><%= current_user.email %> </li>
+            <li><%= link_to 'Sign out', destroy_user_session_path, method: :delete %></li>
+=======
             <li><%= link_to 'Sign out', destroy_user_session_path, :class => "fa fa-sign-out", method: :delete %></li>
+>>>>>>> b044d6aaa79660332674d8fa5d12fe4a3bff9e47
         <% else %>
             <li><%= link_to 'Sign in', new_user_session_path, :class => "fa fa-sign-in" %></li>
             <li><%= link_to 'Sign up', new_user_registration_path, :class => "fa fa-user-plus" %></li>

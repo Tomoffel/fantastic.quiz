@@ -59,11 +59,19 @@ CategoryToQuestion.create(question_id: question5.id, category_id: it.id)
 adminUser = User.create(email: "admin@admin.de", password: 'adminadmin', password_confirmation: 'adminadmin')
 adminUser.add_role :admin
 
+<<<<<<< HEAD
+adminUser.add_role (vwl.name + adminUser.id.to_s)
+adminUser.add_role (bwl.name + adminUser.id.to_s)
+adminUser.add_role (it.name + adminUser.id.to_s)
+adminUser.add_role (rw.name + adminUser.id.to_s)
+adminUser.add_role (se.name + adminUser.id.to_s)
+=======
 adminUser.add_role (vwl.name + vwl.id.to_s)
 adminUser.add_role (bwl.name + bwl.id.to_s)
 adminUser.add_role (it.name + it.id.to_s)
 adminUser.add_role (rw.name + rw.id.to_s)
 adminUser.add_role (se.name + se.id.to_s)
+>>>>>>> FinalTasks
 
 adminUser.add_role question1.id
 adminUser.add_role question2.id

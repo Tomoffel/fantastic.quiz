@@ -44,8 +44,12 @@ gem 'less-rails'
 gem 'rolify'
 gem 'cancan'
 
+<<<<<<< HEAD
 gem 'ransack', github: 'activerecord-hackery/ransack'
+=======
 gem "font-awesome-rails"
+
+>>>>>>> FinalTasks
 
 group :development, :test do
     gem 'rspec-rails'

@@ -4,7 +4,7 @@
   <div class="panel-heading">
     <h4 style="display: inline;">Category: <%= @category.name %></h4>
   </div>
-  <div class="panel-body"><strong>Parent:</strong>
+  <div class="panel-body"><strong>Subject:</strong>
     <% parent = @categories.detect{|c| c.id == @category.parent_id}
         if @category.parent_id != nil && parent != nil %>
         [<%= @category.parent_id %>]
@@ -13,6 +13,12 @@
     <p><br>
       <strong>Owner: </strong> <%= @owner.email %>
       <br><br>
+      <strong>Underlings Categories: </strong><br>
+
+      <% @children.each do |cat| %>
+          <%= link_to cat.name, cat %><br>
+      <% end %>
+      <br>
     <strong>Questions of Category:</strong> <br>
     <% index = 1
        @category.questions.all.each do |quest| %>
