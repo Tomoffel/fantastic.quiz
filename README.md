@@ -19,7 +19,7 @@ Nach Start einer Quizrunde werden alle Fragen die dieser Kategorie (und der Unte
 <ul>
 <li>Neue Quizrunde: Alle Fragen werden wieder gestellt</li>
 <li>Quizrunde fortsetzen: Ein früher begonnenes Quiz kann fortgesetzt werden</li>
-<li>Quizrunde nur mit falschen Antworten: Es werden nur die Fragen gestellt, die bisher falsch beantwortet wurden</li>
+<li>Quizrunde nur mit falschen Antworten (Checking): Es werden nur die Fragen gestellt, die bisher falsch beantwortet wurden</li>
 </ul>
 
 <h4>Rechte der Nutzer</h4>
