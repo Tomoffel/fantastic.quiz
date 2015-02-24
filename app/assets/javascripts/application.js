@@ -94,7 +94,10 @@ var ready = function() {
 
     //function to check question with div
     $(".answer_container").click(function (e) {
-        $(this).children(":first").prop("checked", true)   });
+        $(this).children(":first").prop("checked", true)
+        var link = $("#btn_check").attr("href")
+        $("#btn_check").attr("href",  link.substr(0, link.length-1) + $(this).children(":first").attr("value"))
+    });
 
 
     // create function of move to access to show button in categories view. Add all selected options of full access to access to show
