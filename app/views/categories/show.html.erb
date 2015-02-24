@@ -4,7 +4,7 @@
   <div class="panel-heading">
     <h4 style="display: inline;">Category: <%= @category.name %></h4>
   </div>
-  <div class="panel-body"><strong>Parent:</strong>
+  <div class="panel-body"><strong>PSubject:</strong>
     <% parent = @categories.detect{|c| c.id == @category.parent_id}
         if @category.parent_id != nil && parent != nil %>
         [<%= @category.parent_id %>]
