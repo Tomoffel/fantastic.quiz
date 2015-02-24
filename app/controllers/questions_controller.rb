@@ -208,7 +208,7 @@ class QuestionsController < ApplicationController
     ownCategories = Array.new
 
     @question.categories.each do |cat|
-      if current_user.has_role?(cat.name) || current_user.has_role?(:admin)
+      if current_user.has_role?(cat.name + cat.id.to_s) || current_user.has_role?(:admin)
         ownCategories.push(cat)
       end
     end
