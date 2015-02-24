@@ -1,13 +1,19 @@
 class CategoriesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_category, only: [:show, :edit, :update, :destroy]
-  before_action :set_questions_and_categories, only: [:index, :show, :create]
+  before_action :set_questions_and_categories, only: [:show, :create]
   before_action :set_questions_and_categories_only_full_access, only: [:new, :edit, :update]
   before_action :set_role_user, only: [:edit, :show, :new, :update, :create]
 
   def index
-   @q = Category.ransack(params[:q])
-
+    @search = Category.ransack(params[:q])
+    # use ransacks params for array
+    if (params[:q] != nil)
+      @categories = check_category_role(Category).find_all { |cat| cat.name.downcase.include? ( params[:q][:name].to_s.downcase ) }
+      @filterParams = params[:q][:name]
+    else
+      @categories = check_category_role(Category)
+    end
    #respond_with(@categories)
   end
 

@@ -1,6 +1,10 @@
 <div class="panel panel-default">
   <div class="panel-heading">
-    <h4>Category overview</h4>
+    <h4>Category overview
+    <% if @filterParams != nil %>
+      (filtered by "<%= @filterParams %>")
+    <% end %>
+    </h4>
   </div>
   <div class="panel-body">
 
@@ -39,20 +43,17 @@
   </tbody>
 </table>
 
-    <%= search_form_for @q do |f| %>
-        # Search if the name field contains...
-        <%= f.label :name %>
-        <%= f.search_field :name %>
+    <div class="field">
+        <%= search_form_for @search do |f| %>
+          <%= f.label :name, "Name" %>
+          <%= f.text_field :name %>
+          <%= f.submit "Search", class: "btn btn-success"  %>
 
-        # Search if an associated articles.title starts with...
-        <%= f.label :id %>
-        <%= f.search_field :id %>
-
-        <%= f.submit %>
-    <% end %>
-
-<br>
-
+          <% if @filterParams != nil %>
+              <%= link_to "Deactivate", categories_path, class: 'btn btn-danger' %>
+          <% end %>
+        <% end %>
+    </div>
 <%= link_to 'New Category', new_category_path, class: 'btn btn-primary align-right' %>
   </div>
 </div>

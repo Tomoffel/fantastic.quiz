@@ -13,6 +13,13 @@ class QuestionsController < ApplicationController
       end
     end
 
+    @search = Question.ransack(params[:q])
+    # use ransacks params for array
+    if (params[:q] != nil)
+      @questions = check_question_role(Question).find_all { |quest| quest.question.downcase.include? ( params[:q][:question].to_s.downcase ) }
+      @filterParams = params[:q][:question]
+    end
+
     #respond_with(@questions)
   end
 
