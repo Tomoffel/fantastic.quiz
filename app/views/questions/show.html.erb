@@ -7,7 +7,6 @@
     <strong>Answers:</strong>
       <% index = 1 %>
       <% @question.answers.each do |ans| %>
-        <!-- todo do it with css (also see quiz_rounds index) -->
         <div <% if ans.correctAnswer %>
              style="background-color: #00CD00;"
             <% end %>>
