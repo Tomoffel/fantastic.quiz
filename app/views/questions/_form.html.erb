@@ -18,17 +18,18 @@
       <%= f.label :please_insert_the_answers_and_select_the_correct_one %>
        <!-- TODO do it with divs and space between the answers -->
       <table style="width: 100%" >
-        <tr>
+        <tr class="table_row">
           <td><%= f.text_field :answers1, :value => @answerValue1, class: "form-control" %></td>
-          <td><%= f.radio_button :correctMethod, :correct1, :checked => @correctValue1 %></td>
+          <td class="questions_radio"><%= f.radio_button :correctMethod, :correct1, :checked => @correctValue1 %></td>
           <td><%= f.text_field :answers2, :value => @answerValue2, class: "form-control" %></td>
-          <td><%= f.radio_button :correctMethod, :correct2, :checked => @correctValue2 %></td>
+          <td class="questions_radio"><%= f.radio_button :correctMethod, :correct2, :checked => @correctValue2 %></td>
         </tr>
-        <tr>
+        <tr><td></td><td></td></tr>
+        <tr class="table_row">
           <td><%= f.text_field :answers3, :value => @answerValue3, class: "form-control" %></td>
-          <td><%= f.radio_button :correctMethod, :correct3, :checked => @correctValue3 %></td>
+          <td class="questions_radio"><%= f.radio_button :correctMethod, :correct3, :checked => @correctValue3 %></td>
           <td><%= f.text_field :answers4, :value => @answerValue4, class: "form-control" %></td>
-          <td><%= f.radio_button :correctMethod, :correct4, :checked => @correctValue4 %></td>
+          <td class="questions_radio"><%= f.radio_button :correctMethod, :correct4, :checked => @correctValue4 %></td>
         </tr>
       </table><br>
       <%= f.label :categories %><br>

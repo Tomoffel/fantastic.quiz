@@ -10,7 +10,7 @@
       <ul class="nav navbar-nav pull-right">
 
         <% if current_user %>
-            <li id="email"><%= current_user.email %> </li>
+            <li  class= " fa fa-user" id="email"><%= current_user.email  %> </li>
             <li><%= link_to 'Sign out', destroy_user_session_path, :class => "fa fa-sign-out", method: :delete %></li>
         <% else %>
             <li><%= link_to 'Sign in', new_user_session_path, :class => "fa fa-sign-in" %></li>

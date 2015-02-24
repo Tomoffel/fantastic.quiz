@@ -40,6 +40,8 @@
 
     <%= render partial: 'shared/navigation' %>
     <div class="container">
+      <div id="js_notice" class="alert alert-warning">Javascript is disabled in your web browser. You have to enable JavaScript to use this site correctly.</div>
+
       <div class="row">
         <div class="col-lg-9">
           <%= bootstrap_flash %>
@@ -58,20 +60,23 @@
               <li><%= link_to "Start a quiz", quiz_round_overview_path , :class => "fa fa-play-circle" %></li>
             </ul>
           </div><!--/.well -->
-        </div><!--/span-->
 
-            <% if current_user.has_role?(:admin) %>
-            <div class="col-lg-3">
+          <% if current_user.has_role?(:admin) %>
+
               <div class="well sidebar-nav navbar-top">
-                <h4>Counter</h4>
+                <h3>Statistics</h3>
                 <ul class="nav nav-list">
                   <li>User: <%= User.all.count %></li>
                   <li>Categories: <%= Category.all.count %></li>
                   <li>Questions: <%= Question.all.count %></li>
                 </ul>
               </div><!--/.well -->
-            </div><!--/span-->
-            <% end %>
+
+          <% end %>
+
+        </div><!--/span-->
+
+
         <% end %>
       </div><!--/row-->
 
