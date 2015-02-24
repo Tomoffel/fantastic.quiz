@@ -147,7 +147,6 @@ class QuestionsController < ApplicationController
           if (answer_params[index]['answer'] == "" and index <= 2)
             noError = false
           else
-            #TODO do it nice
             ans.delete
             noError = noError ? create_new_answer(answer_params[index]['answer'], @question.id, answer_params[index]['correctAnswer']) : false
           end

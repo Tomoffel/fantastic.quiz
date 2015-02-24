@@ -151,7 +151,6 @@ class CategoriesController < ApplicationController
     @category.category_to_questions.destroy_all
   end
 
-  #todo what happen if save not possible?
   def addQuestions
     questions = params[:category][:questions]
 
