@@ -14,6 +14,8 @@ class CategoriesController < ApplicationController
       flash[:warning] = 'Permission denied'
       redirect_to categories_url
     end
+
+    @children = check_category_role(Category).select {|parent| parent.parent_id == @category.id}
   end
 
   def new
