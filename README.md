@@ -15,11 +15,11 @@ Das FantasticQuiz bietet eine Lernplattform für alle Studierenden.
 
 <h3>Details der Anwendung</h3>
 <h4>Quizrunden</h4> 
-Nach dem Start einer Quizrunde werden alle Fragen die dieser Kategorie oder einer Unterkategorie der Kategorie zugeordnet sind in zufälliger Reihenfolge abgefragt. Es gibt dabei 3 verschiedenen Varianten:
+Nach Start einer Quizrunde werden alle Fragen die dieser Kategorie (und der Unterkategorien) zugeordnet sind in zufälliger Reihenfolge abgefragt. Es gibt dabei 3 verschiedenen Varianten:
 <ul>
 <li>Neue Quizrunde: Alle Fragen werden wieder gestellt</li>
 <li>Quizrunde fortsetzen: Ein früher begonnenes Quiz kann fortgesetzt werden</li>
-<li>Quizrunde nur mit falschen Antworten: Es werden nur die Fragen gestellt die bisher falsch beantwortet wurden</li>
+<li>Quizrunde nur mit falschen Antworten: Es werden nur die Fragen gestellt, die bisher falsch beantwortet wurden</li>
 </ul>
 
 <h4>Rechte der Nutzer</h4>
@@ -38,12 +38,12 @@ Es gibt dabei zwei Möglichkeiten:
 </ul>
 
 <h4>Fragen löschen</h4>
-Möchte man eine Frage löschen und diese ist mehrere Kategorien zugeordnet, muss ausgewählt werden von welche Kategorie man die Frage löschen möchte und anschließend wird nur diese Verknüpfung jedoch nicht die Frage an sich gelöscht. Um eine Frage entgültig zu löschen darf sie nur noch einer oder keiner Kategorie zugeordnet sein.
+Möchte man eine Frage löschen und diese ist mehrere Kategorien zugeordnet, muss ausgewählt werden von welcher Kategorie man die Frage löschen möchte und anschließend wird nur diese Verknüpfung, jedoch nicht die Frage an sich gelöscht. Um eine Frage endgültig zu löschen darf sie nur noch einer oder keiner Kategorie zugeordnet sein.
 
 <h4>Standardnutzer</h4>
 <ul>
 <li>Administrator: admin@admin.de, Passwort: adminadmin</li>
-<li>Normaler Nutzer: normal@normal.de, Password: normalnormal</li>
+<li>Normaler Nutzer: normal@normal.de, Passwort: normalnormal</li>
 </ul>
 
 <h4>Umfang des Standard-Seeds</h4>
@@ -51,18 +51,18 @@ Adminstrator und Normaler Nutzer wie oben angegeben. 5 Kategorien und 7 Fragen v
 
 <h3>Details zur Entwicklung</h3> 
 <h4>User-Stories:</h4> 
-Das Projekt umfasst 30 Userstories die in einer LibreOffice Datei festgehalten wurde. Die Datei heißt UserStories.odp und liegt neben dieser Readme-Datei in GitHub.
+Das Projekt umfasst 30 Userstories die in einer LibreOffice Datei festgehalten sind. Die Datei heißt UserStories.odp und liegt neben dieser Readme-Datei in GitHub.
 
 <h4>Testumfang:</h4> 
 <b>Starte rspec-Tests über:<i>   bundle exec rspec</i></b><br>
 <b>Beschreibung der Testfälle: </b>
 <ul>
 <b><i>spec/features/questions_spec</i></b>
-<li>Erstellen, löschen, ändern und anzeigen von Fragen</li>
+<li>Erstellen, Löschen, Ändern und Anzeigen von Fragen</li>
 <b><i>spec/features/categories_spec</i></b>
-<li>Erstellen, löschen, ändern und anzeigen von Categorien</li>
+<li>Erstellen, Löschen, Ändern und Anzeigen von Kategorien</li>
 <b><i>spec/features/quiz_round_spec</i></b>
-<li>Starten und ausführen einer Quizrunde</li>
+<li>Starten und Ausführen einer Quizrunde</li>
 </ul>
 
 <h4>Genutzte Gems:</h4>
