@@ -65,12 +65,12 @@ adminUser.add_role (it.name + it.id.to_s)
 adminUser.add_role (rw.name + rw.id.to_s)
 adminUser.add_role (se.name + se.id.to_s)
 
-adminUser.add_role question1.id
-adminUser.add_role question2.id
-adminUser.add_role question3.id
-adminUser.add_role question4.id
-adminUser.add_role question5.id
-adminUser.add_role question6.id
-adminUser.add_role question7.id
+adminUser.add_role question1.id.to_s
+adminUser.add_role question2.id.to_s
+adminUser.add_role question3.id.to_s
+adminUser.add_role question4.id.to_s
+adminUser.add_role question5.id.to_s
+adminUser.add_role question6.id.to_s
+adminUser.add_role question7.id.to_s
 
 normalUser = User.create(email: "normal@normal.de", password: 'normalnormal', password_confirmation: 'normalnormal')

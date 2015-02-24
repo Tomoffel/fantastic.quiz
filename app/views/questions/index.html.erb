@@ -19,7 +19,7 @@
       <tr>
         <td><%= question.question %></td>
             <td width="300"><%= link_to 'Show', question, class: 'btn btn-default fa fa-eye' %>
-         <% if current_user.has_role?(question.id) || current_user.has_role?(:admin) %>
+         <% if current_user.has_role?(question.id.to_s) || current_user.has_role?(:admin) %>
             <%= link_to 'Edit', edit_question_path(question), class: 'btn btn-default fa fa-pencil' %>
             <%= link_to 'Destroy', question, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-default fa fa-trash-o' %></td>
          <% end %>
