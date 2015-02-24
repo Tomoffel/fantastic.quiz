@@ -47,6 +47,20 @@
         </div>
 
         <% if current_user %>
+<<<<<<< HEAD
+            <div class="col-lg-3">
+              <div class="well sidebar-nav navbar-top">
+                <h3>Actions</h3>
+                <ul class="nav nav-list">
+                  <li><%= link_to "Create a new category", new_category_path %></li>
+                  <li><%= link_to "Create a new question", new_question_path %></li>
+                  <li><%= link_to "Categories overview", categories_path  %></li>
+                  <li><%= link_to "Questions overview", questions_path  %></li>
+                  <li><%= link_to "Start a quiz", quiz_round_overview_path %></li>
+                </ul>
+              </div><!--/.well -->
+            </div><!--/span-->
+=======
         <div class="col-lg-3">
           <div class="well sidebar-nav navbar-top">
             <h3>Actions</h3>
@@ -59,6 +73,7 @@
             </ul>
           </div><!--/.well -->
         </div><!--/span-->
+>>>>>>> b044d6aaa79660332674d8fa5d12fe4a3bff9e47
 
             <% if current_user.has_role?(:admin) %>
             <div class="col-lg-3">
