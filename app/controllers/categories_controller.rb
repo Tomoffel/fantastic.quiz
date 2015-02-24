@@ -18,7 +18,7 @@ class CategoriesController < ApplicationController
   end
 
   def show
-    if !(current_user.has_role?(@category.name + "_see") ||current_user.has_role?(@category.name + "_full") || current_user.has_role?(@category.name) || current_user.has_role?(:admin))
+    if !(current_user.has_role?(@category.name + @category.id.to_s + "_see") ||current_user.has_role?(@category.name + @category.id.to_s + "_full") || current_user.has_role?(@category.name + @category.id.to_s) || current_user.has_role?(:admin))
       flash[:warning] = 'Permission denied'
       redirect_to categories_url
     end
@@ -32,7 +32,7 @@ class CategoriesController < ApplicationController
   end
 
   def edit
-    if !(current_user.has_role?(@category.name + "_full") || current_user.has_role?(@category.name) || current_user.has_role?(:admin))
+    if !(current_user.has_role?(@category.name + @category.id.to_s + "_full") || current_user.has_role?(@category.name + @category.id.to_s) || current_user.has_role?(:admin))
       flash[:warning] = 'Permission denied'
       redirect_to categories_url
     end
