@@ -26,14 +26,19 @@
 </table>
 
      <% if @ownCategories != nil %>
-        <div id="own_categories_to_delete" >
-          <div id="own_catgories_to_delete_inner">
+        <div id="overlay" >
+          <div id="overlay_inner" class="panel panel-default">
+            <div class="panel-heading">
+                <h4 style="text-align:center">Conntected categories</h4>
+            </div>
+            <div class="panel-body">
             <% @ownCategories.each do |cat| %>
                 <div  class="one_category">
                     <div class="float_left" id="<%= cat.id %>"><%= cat.name %></div>
                     <%= link_to 'Delete', questions_delete_connection_path(:cat=>cat.id, :quest=>@question_id), class: 'btn btn-danger float_left' %>
                 </div>
             <% end %>
+            </div>
             </div>
         </div>
     <% end %>

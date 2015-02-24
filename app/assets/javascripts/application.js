@@ -74,6 +74,18 @@ var ready = function() {
     })
 
 
+    $("#btn_check").click(function(){
+       // alert("test");
+        $("#quiz_rounds_answer_container").addClass("not_hover");
+    });
+
+    //hide js_notice
+    $("#js_notice").hide();
+
+    //function to check question with div
+    $(".answer_container").click(function (e) {
+        $(this).children(":first").prop("checked", true)   });
+
     $('#from_list_with_full_access').click(function(e) {
         var selectedOpts = $('#list_with_full_access option:selected');
 

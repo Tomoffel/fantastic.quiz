@@ -2,14 +2,14 @@
   <div class="panel-heading">
     <h4>Quiz-Round <%= @category.name %></h4>
   </div>
-  <div class="panel-body">
+  <div class="panel-body" id="quiz_rounds_answer_container">
     <% if @question == nil %>
         No more questions
     <% else %>
         <%= @question.question %>
         <% index = 1 %>
         <% @question.answers.each do |ans| %>
-            <div <% if ans.correctAnswer && @answerChoose == 1 %>
+            <div class="answer_container" <% if ans.correctAnswer && @answerChoose == 1 %>
                     style="background-color: #00CD00;"
                  <% else if index == @selectedAnswer.to_i && @answerChoose == 1 %>
                     style="background-color: #cd0000;"
@@ -27,4 +27,4 @@
     <% end %>
   </div>
 </div>
-<%= link_to 'Back', quiz_round_overview_path %>
+<%= link_to 'Back', quiz_round_overview_path, :class => "fa fa-arrow-circle-o-left" %>

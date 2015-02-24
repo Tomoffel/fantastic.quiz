@@ -14,42 +14,15 @@
 // Font Awesome
 @import "fontawesome/font-awesome";
 
-// Glyphicons
-//@import "twitter/bootstrap/glyphicons.less";
-
-// Your custom LESS stylesheets goes here
-//
-// Since bootstrap was imported above you have access to its mixins which
-// you may use and inherit here
-//
-// If you'd like to override bootstrap's own variables, you can do so here as well
-// See http://twitter.github.com/bootstrap/customize.html#variables for their names and documentation
-//
-// Example:
-// @link-color: #ff0000;
+/* overrides generals*/
 .align-right {
-float: right;
+  float: right;
 }
-
-.nav > li > a:before{
-  padding-right: 5px !important;
-}
-
-.fa-arrow-circle-o-left:before,
-.fa-arrow-right:before{
-  padding-right: 5px !important;
-}
-
-.fa-arrow-circle-o-left {
-  padding-bottom: 10px;
-}
-
 
 .navbar-brand a {
   font-size: 2em;
   color: #ff6d5e;
 }
-
 
 .sidebar-nav .nav > li > a:hover, .sidebar-nav .nav > li > a:focus {
   font-weight: bold;
@@ -59,4 +32,56 @@ float: right;
 footer p {
   padding-top: 10px;
 }
+
+
+/* added icons */
+.nav > li > a:before,
+.fa-user:before{
+  padding-right: 5px !important;
+}
+
+.fa-user:before {
+  padding: 15px;
+}
+
+
+.fa-arrow-circle-o-left:before,
+.fa-arrow-right:before {
+  padding-right: 5px !important;
+}
+
+.fa-arrow-circle-o-left {
+  padding-bottom: 10px;
+}
+
+.questions_radio {
+  text-align: center;
+}
+
+
+table {
+  border-collapse: collapse;
+  border-spacing: 3px;
+}
+
+td {
+  padding: 3px;
+}
+
+.answer_container {
+  border-radius: 3px;
+  min-width: 200px;
+  border: 1px solid #e2e2e2;
+  margin-bottom: 2px;
+}
+
+.answer_container:hover {
+  background-color: #f2f2f2;
+}
+
+.not_hover .answer_container:hover {
+  background-color: none;
+}
+
+
 
