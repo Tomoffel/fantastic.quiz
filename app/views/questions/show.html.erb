@@ -22,10 +22,10 @@
        end %>
     <div class="align-right">
       <% if current_user.has_role?(@question.id.to_s + "_full") || current_user.has_role?(:admin) %>
-        <%= link_to 'Edit', edit_question_path(@question), class: 'btn btn-primary' %>
+        <%= link_to 'Edit', edit_question_path(@question), class: 'btn btn-primary fa fa-pencil'%>
       <% end %>
       <% if current_user.has_role?(@question.id.to_s) || current_user.has_role?(:admin) %>
-        <%= link_to 'Destroy', @question, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
+        <%= link_to 'Destroy', @question, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger fa fa-trash-o' %></td>
       <% end %>
     </div>
   </div>

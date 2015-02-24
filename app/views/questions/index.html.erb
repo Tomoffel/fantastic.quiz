@@ -18,10 +18,10 @@
     <% @questions.each do |question| %>
       <tr>
         <td><%= question.question %></td>
-            <td width="250"><%= link_to 'Show', question, class: 'btn btn-default' %>
+            <td width="300"><%= link_to 'Show', question, class: 'btn btn-default fa fa-eye' %>
          <% if current_user.has_role?(question.id) || current_user.has_role?(:admin) %>
-            <%= link_to 'Edit', edit_question_path(question), class: 'btn btn-default' %>
-            <%= link_to 'Destroy', question, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-default' %></td>
+            <%= link_to 'Edit', edit_question_path(question), class: 'btn btn-default fa fa-pencil' %>
+            <%= link_to 'Destroy', question, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-default fa fa-trash-o' %></td>
          <% end %>
       </tr>
     <% end %>
@@ -32,7 +32,7 @@
         <div class="field">
           <%= f.label :question, "Question" %>
           <%= f.text_field :question %>
-          <%= f.submit "Search", class: "btn btn-success"  %>
+          <%= f.submit "Search", class: "btn btn-success "  %>
 
           <% if @filterParams != nil %>
               <%= link_to "Deactivate", questions_path, class: 'btn btn-danger' %>

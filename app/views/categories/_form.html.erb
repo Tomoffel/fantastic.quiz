@@ -31,8 +31,8 @@
       <br>
       <div align="center">
          <button id="btn_select" class="btn btn-success fa fa-arrow-up">Select</button>
-         <button id="btn_deselect" class="btn btn-warning">Deselect</button>
-         <%= link_to 'New Question', new_question_path(:category_id=>@category.id), class: 'btn btn-primary' %>
+         <button id="btn_deselect" class="btn btn-warning fa fa-arrow-down">Deselect</button>
+         <%= link_to 'New Question', new_question_path(:category_id=>@category.id), class: 'btn btn-primary fa fa-plus' %>
       </div>
       <br>
       <%= f.label :other_questions %><br>
@@ -91,6 +91,6 @@
     </div>
     </div>
     <div class="actions">
-      <%= f.submit :Save, {class: "btn btn-primary align-right", id: "btn_submit" } %>
+      <%= f.submit :Save, {class: "btn btn-primary align-right ", id: "btn_submit" } %>
     </div>
 <% end %>

@@ -29,12 +29,12 @@
               link_to parent.name, category_path(parent)
             end %></td>
         <td style="text-align: center;"><%= category.questions.count %></td>
-        <td width="250"><%= link_to 'Show', category, class: 'btn btn-default' %>
+        <td width="300"><%= link_to 'Show', category, class: 'btn btn-default fa fa-eye' %>
           <% if current_user.has_role?(category.name + category.id.to_s ) || current_user.has_role?(category.name + category.id.to_s + "_full") || current_user.has_role?(:admin) %>
-            <%= link_to 'Edit', edit_category_path(category), class: 'btn btn-default' %>
+            <%= link_to 'Edit', edit_category_path(category), class: 'btn btn-default fa fa-pencil' %>
           <% end %>
           <% if current_user.has_role?(category.name + category.id.to_s ) || current_user.has_role?(:admin) %>
-            <%= link_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-default' %>
+            <%= link_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-default fa fa-trash-o' %>
           <% end %>
         </td>
 
@@ -47,7 +47,7 @@
         <%= search_form_for @search do |f| %>
           <%= f.label :name, "Name" %>
           <%= f.text_field :name %>
-          <%= f.submit "Search", class: "btn btn-success"  %>
+          <%= f.submit "Search", class: "btn btn-success "  %>
 
           <% if @filterParams != nil %>
               <%= link_to "Deactivate", categories_path, class: 'btn btn-danger' %>
