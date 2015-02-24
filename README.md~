@@ -16,7 +16,7 @@ Das FantasticQuiz bietet eine Lernplattform für alle Studierenden.
 
 <h3>Details der Anwendung</h3> <br>
 <h2>Quizrunden</h2> <br>
-Nach dem Start einer Quizrunde werden alle Fragen die dieser Kategorie oder einer Unterkategorie der Kategorie zugeordnet sind in zufälliger Reihenfolge abgefragt. Es gibt dabei 3 verschiedenen Varianten:
+Nachdem Start einer Quizrunde werden alle Fragen die dieser Kategorie oder einer Unterkategorie der Kategorie zugeordnet sind in zufälliger Reihenfolge abgefragt.
 <ul>
 <li>Neue Quizrunde: Alle Fragen werden wieder gestellt</li>
 <li>Quizrunde fortsetzen: Ein früher begonnenes Quiz kann fortgesetzt werden</li>

@@ -60,7 +60,7 @@
     <div>
         <div class="selectbox">
             <label>Full access User</label><br>
-          Create, Read, Update, Delete<br>
+          Create, Read, Update<br>
             <%= f.collection_select :id, @usersWithFullAccess, :id, :email, {}, { id: "list_with_full_access", multiple: true, name: "list_with_full_access[id][]"} %>
             <div class="move_button_container">
                 <div class="move_button_container_inside">
