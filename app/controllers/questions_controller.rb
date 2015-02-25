@@ -224,7 +224,7 @@ class QuestionsController < ApplicationController
           ans.destroy
         end
 
-        Role.destroy_all(:name => @question.id)
+        Role.destroy_all(:name => @question.id.to_s)
         Role.destroy_all(:name => @question.id.to_s + "_see")
 
         @question.destroy
