@@ -2,7 +2,7 @@
   <div class="panel-heading">
     <h4>Category overview
     <% if @filterParams != nil %>
-      (filtered by "<%= @filterParams %>")
+      <span class="filtered">(filtered by "<%= @filterParams %>")</span>
     <% end %>
     </h4>
   </div>
@@ -43,7 +43,7 @@
   </tbody>
 </table>
 
-    <div class="field">
+    <div class="field search_container">
         <%= search_form_for @search do |f| %>
           <%= f.label :name, "Name" %>
           <%= f.text_field :name %>

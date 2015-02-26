@@ -2,7 +2,7 @@
   <div class="panel-heading">
     <h4>Question overview
       <% if @filterParams != nil %>
-          (filtered by "<%= @filterParams %>")
+          <span class="filtered">(filtered by "<%= @filterParams %>")</span>
       <% end %></h4>
   </div>
   <div class="panel-body">
@@ -29,7 +29,7 @@
 </table>
 
     <%= search_form_for @search do |f| %>
-        <div class="field">
+        <div class="search_container field">
           <%= f.label :question, "Question" %>
           <%= f.text_field :question %>
           <%= f.submit "Search", class: "btn btn-success "  %>
