@@ -13,6 +13,9 @@ Das FantasticQuiz bietet eine Lernplattform für alle Studierenden.
 <li>Kategorien mit anderen Benutzern teilen</li>
 </ul>
 
+<h3>Testanwendung</h3>
+<a href="https://fantasticquiz.herokuapp.com/">https://fantasticquiz.herokuapp.com/</a>
+
 <h3>Details der Anwendung</h3>
 <h4>Quizrunden</h4> 
 Nach Start einer Quizrunde werden alle Fragen die dieser Kategorie (und der Unterkategorien) zugeordnet sind in zufälliger Reihenfolge abgefragt. Es gibt dabei 3 verschiedenen Varianten:
